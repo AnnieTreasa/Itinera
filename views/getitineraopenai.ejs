@@ -1,10 +1,6 @@
 <%- include('partials/header'); -%>
 
-<!-- <header> -->
-
-    
-
-    <div class="App" style="font-family: Arial, sans-serif;
+<div class="App" style="font-family: Arial, sans-serif;
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
@@ -23,7 +19,10 @@
         <label for="travelStyle">Travel Style:</label>
         <input type="text" id="travelStyle">
     </div>
-    <!-- Add more input fields as needed -->
+    <div>
+        <label for="NoofDays"> Number of Days:</label>
+        <input type="text" id="NoofDays">
+    </div>
     <div>
         <button id="getItineraryButton" style="width: 100%;
             padding: 10px;
@@ -33,59 +32,54 @@
             border-radius: 5px;
             cursor: pointer;">Get your Itinerary</button>
     </div>
-
-    
-   
-
     <div id="output"></div>
 </div>
 
+<%- include('partials/footer'); -%>
 
-    <%- include('partials/footer'); -%>
+<script>
+    document.getElementById("getItineraryButton").addEventListener("click", async function() {
+        const destinationCountry = document.getElementById("destinationCountry").value;
+        const budget = document.getElementById("budget").value;
+        const travelStyle = document.getElementById("travelStyle").value;
+        const NoofDays = document.getElementById("NoofDays").value;
 
+        // Log input values to the console
+        console.log('Destination:', destinationCountry);
+        console.log('Budget(Rs):', budget);
+        console.log('Travel Style:', travelStyle);
+        console.log('No of days:', NoofDays)
 
+        const API_KEY = "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";
 
-    
-    <script>
-        document.getElementById("getItineraryButton").addEventListener("click", async function() {
-            const destinationCountry = document.getElementById("destinationCountry").value;
-            const budget = document.getElementById("budget").value;
-            const travelStyle = document.getElementById("travelStyle").value;
-            // Get other input values similarly
+        const APIBody = {
+            "model": "gpt-3.5-turbo-0125",
+            "messages": [
+                {
+                    "role": "system",
+                    "content": `Generate a personalized travel itinerary for a trip to ${destinationCountry} with a budget of ${budget} and number of days ${NoofDays} along with timestamps. The traveler is interested in a ${travelStyle} vacation and enjoys ...`
+                }
+            ],
+            "temperature": 0.7,
+            "max_tokens": 500,
+            "top_p": 1
+        };
 
-            const API_KEY = "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";
-
-            const APIBody = {
-                "model": "gpt-3.5-turbo-0125",
-                "messages": [
-                    {
-                        "role": "system",
-                        "content": `Generate a personalized travel itinerary for a trip to ${destinationCountry} with a budget of ${budget} along with timestamps. The traveler is interested in a ${travelStyle} vacation and enjoys ...`
-                    }
-                ],
-                "temperature": 0.7,
-                "max_tokens": 500,
-                "top_p": 1
-            };
-
-            const response = await fetch("https://api.openai.com/v1/chat/completions", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer " + API_KEY
-                },
-                body: JSON.stringify(APIBody)
-            });
-            const data = await response.json();
-            const itinerary = data.choices[0].message.content;
-
-            document.getElementById("output").innerHTML = "<h3>Your Travel Plan:</h3><p>" + itinerary + "</p>";
+        const response = await fetch("https://api.openai.com/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + API_KEY
+            },
+            body: JSON.stringify(APIBody)
         });
-    </script>
+        const data = await response.json();
+        const itinerary = data.choices[0].message.content;
 
+        // Split itinerary by day and format each day
+        const days = itinerary.split('\n\n'); // Assuming each day is separated by two consecutive line breaks
+        const formattedItinerary = days.map((day, index) => `<h3>Day ${index +1}</h3><p>${day}</p>`).join('');
 
-<!-- 
-</header> -->
-
-<!-- 
-<%- include('partials/footer'); -%> -->
+        document.getElementById("output").innerHTML = "<h2>Your Travel Plan:</h2>" + formattedItinerary;
+    });
+</script>

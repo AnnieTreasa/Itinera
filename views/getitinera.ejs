@@ -36,16 +36,6 @@
                 <option value="vacation">Vacation</option>
             </select>
         </div>
-        <!-- <div>
-            <label for="preference">Preference:</label>
-            <select id="preference" required>
-                <option value="">Select Preference</option>
-                <option value="nature">Nature</option>
-                <option value="adventure">Adventure</option>
-                <option value="calm">Calm and Relaxation</option>
-                
-            </select>
-        </div> -->
         <div>
             <button type="submit" style="width: 100%;
             padding: 10px;
@@ -53,7 +43,7 @@
             color: #fff;
             border: none;
             border-radius: 5px;
-            cursor: pointer;"><a href="/itinera">Get Itinerary</a></button>
+            cursor: pointer;">Get Itinerary</button>
         </div>
     </form>
     <div id="output"></div>
@@ -61,3 +51,30 @@
 
 
 <%- include('partials/footer'); -%>
+
+<script>
+    // Get the form element
+    const form = document.getElementById('itineraryForm');
+
+    // Add submit event listener
+    form.addEventListener('submit', function(event) {
+        // Prevent default form submission
+        event.preventDefault();
+
+        // Get form input values
+        const destination = document.getElementById('destination').value;
+        const startDate = document.getElementById('startDate').value;
+        const numberOfDays = document.getElementById('numberOfDays').value;
+        const budget = document.getElementById('budget').value;
+        const travelType = document.getElementById('travelType').value;
+
+        // Log input values to the console
+        console.log('Destination:', destination);
+        console.log('Start Date:', startDate);
+        console.log('Number of Days:', numberOfDays);
+        console.log('Budget:', budget);
+        console.log('Travel Type:', travelType);
+
+        // You can perform further actions here, such as sending the data to a server or processing it.
+    });
+</script>

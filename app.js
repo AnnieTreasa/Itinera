@@ -4,7 +4,6 @@ import itinerary from './src/models/itinerary'
 import other from './src/routes/others'
 import routes from './src/routes/authRoutes'
 import itin from './src/routes/itineraryroute'
-import search from './src/routes/search'
 const authRoutes = require('./src/routes/authRoutes');
 const cookieParser = require('cookie-parser');
 
@@ -21,7 +20,6 @@ app.use(express.json())
 app.use(authRoutes)
 app.use(other)
 app.use(itin)
-app.use(search)
 app.use(cookieParser());
 
 

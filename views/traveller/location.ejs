@@ -1,0 +1,57 @@
+<%- include('../partials/header'); -%>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Location</title>
+</head> -->
+<!-- <body>
+
+<button onclick="getLocation()">Get Location</button>
+
+<script>
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        console.log("Geolocation is not supported by this browser.");
+    }
+}
+
+function showPosition(position) {
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+    console.log("Latitude: " + latitude + " Longitude: " + longitude);
+    sendToServer(latitude, longitude);
+    // You can do further processing here, like sending the coordinates to the server.
+}
+function sendToServer(latitude, longitude) {
+    var xhr = new XMLHttpRequest();
+    var url = '/location?lat=' + latitude + '&long=' + longitude;
+    xhr.open('GET', url, true);
+    xhr.send();
+}
+</script> -->
+
+<!-- </body>
+</html> -->
+
+<script>
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            console.log("Geolocation is not supported by this browser.");
+        }
+    }
+    
+    function showPosition(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        var altitude = position.coords.altitude;
+        document.getElementById('location').innerHTML = "Latitude: " + latitude + " Longitude: " + longitude + " Altitude: " + altitude;
+    }
+    </script>
+<%- include('../partials/footer'); -%>

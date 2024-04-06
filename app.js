@@ -11,6 +11,7 @@ const itineraryRoutes = require('./src/routes/itinerary');
 //const cookieParser = require('cookie-parser');
 const path = require('path');
 const bodyParser = require('body-parser');
+// const express =require('express');
 
 
 require('dotenv').config()
@@ -51,4 +52,12 @@ app.use((err, req, res, next) => {
 // Start the server
 app.listen(process.env.PORT,() => console.log('Server listening on port 3005'));
 
-
+// for location
+app.get('/location', (req, res) => {
+  const latitude = req.query.lat;
+  const longitude = req.query.long;
+  console.log("Received latitude:", latitude);
+  console.log("Received longitude:", longitude);
+  // You can perform further processing here, like storing the coordinates in a database.
+  res.send("Location received successfully.");
+});

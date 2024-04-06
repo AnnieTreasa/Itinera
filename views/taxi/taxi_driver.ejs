@@ -1,7 +1,10 @@
 <%- include('../partials/header1'); -%>
 
 <h2>Taxidriver Signup</h2>
-<form action="/taxi_home" onsubmit="return validatePassword()">
+<form action="/taxi_home" id="taxi_signup_form">
+  <label for="email">Email:</label>
+  <input type="email" id="email" name="email" required><br><br>
+
     <label for="username">Username:</label>
     <input type="text" id="username" name="username" required><br><br>
     
@@ -11,21 +14,6 @@
     <label for="confirmPassword">Confirm Password:</label>
     <input type="password" id="confirmPassword" name="confirmPassword" required><br><br>
     
-    <label for="availableDays">Available Days:</label><br>
-    <input type="checkbox" id="sunday" name="availableDays" value="Sunday">
-    <label for="sunday">Sunday</label>
-    <input type="checkbox" id="monday" name="availableDays" value="Monday">
-    <label for="monday">Monday</label>
-    <input type="checkbox" id="tuesday" name="availableDays" value="Tuesday">
-    <label for="tuesday">Tuesday</label>
-    <input type="checkbox" id="wednesday" name="availableDays" value="Wednesday">
-    <label for="wednesday">Wednesday</label>
-    <input type="checkbox" id="thursday" name="availableDays" value="Thursday">
-    <label for="thursday">Thursday</label>
-    <input type="checkbox" id="friday" name="availableDays" value="Friday">
-    <label for="friday">Friday</label>
-    <input type="checkbox" id="saturday" name="availableDays" value="Saturday">
-    <label for="saturday">Saturday</label><br><br>
     
     <label for="fee">Fee:</label>
     <input type="number" id="fee" name="fee" required><br><br>
@@ -54,29 +42,67 @@
     <input type="radio" id="no" name="isGuide" value="No">
     <label for="no">No</label><br><br>
     
-    <label for="availabilityDuration">Time Availability Duration:</label><br>
-    <label for="startTime">Start Time:</label>
-    <input type="time" id="startTime" name="startTime" required>
-    <label for="endTime">End Time:</label>
-    <input type="time" id="endTime" name="endTime" required><br><br>
 
     <button type="submit">Signup</button>
 </form>
 
-<p>Already have an account? <a href="/taxi_login">Login</a></p>
+<p>Already have an account? <a href="/login">Login</a></p>
 <p>Forgot password? <a href="/admin_forgot_password">Reset Password</a></p>
 <p>Go to <a href="/">Home</a></p>
 
 <%- include('../partials/footer'); -%>
 
 <script>
-    function validatePassword() {
-      var password = document.getElementById("password").value;
-      var confirmPassword = document.getElementById("confirmPassword").value;
-      if (password !== confirmPassword) {
-        alert("Passwords do not match!");
-        return false;
-      }
-      return true;
-    }
+const signupForm = document.getElementById('taxi_signup_form');
+
+signupForm.addEventListener('submit', async (event) => {
+  event.preventDefault(); // Prevent default form submission
+
+  const username = document.getElementById('username').value;
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const fee = document.getElementById('fee').value;
+  const vehicleType = document.getElementById('vehicleType').value;
+  const seatingAvailability = document.getElementById('seatingAvailability').value;
+  const taxiNumber = document.getElementById('taxiNumber').value;
+  const location = document.getElementById('location').value;
+  const languagesKnown = document.getElementById('languagesKnown').value;
+  const isGuide = document.querySelector('input[name="isGuide"]:checked').value; // Get selected guide option
+  const startTime = document.getElementById('startTime').value;
+  const endTime = document.getElementById('endTime').value;
+  const role = "Taxi driver"
+  // Basic client-side validation (optional but recommended)
+  if (!username || !email || !password || !fee || !vehicleType || !seatingAvailability || !taxiNumber || !location || !languagesKnown ) {
+    alert('Please fill in all required fields');
+    return;
+  }
+
+  const response = await fetch('/user/taxi_register', {  // Adjust URL based on your backend route
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      username,
+      email,
+      password,
+      fee,
+      vehicleType,
+      seatingAvailability,
+      taxiNumber,
+      location,
+      languagesKnown,
+      isGuide,
+      role
+    }) // Send data as JSON
+  });
+
+  if (response.ok) { // Handle successful registration
+    alert('Registration successful!');
+    // Optionally redirect to login page or other confirmation page
+    window.location.href = '/taxi_home'; // Redirect to home (adjust URL if needed)
+  } else { // Handle errors
+    const errorData = await response.json();
+    alert(errorData.message || 'Registration failed. Please try again.');
+  }
+});
+
 </script>

@@ -2,12 +2,6 @@ import {Router} from "express";
 const other=Router();
 
 
-
-
-other.get('/admin',async(req,res)=>{
-    res.render('admin/admin')
-})
-
 other.get('/traveller',async(req,res)=>{
     res.render('traveller/trav_signup')
 })
@@ -77,7 +71,9 @@ other.get('/settings',async(req,res)=>{
     res.render('admin/settings')
 })
 
-
+other.get('/search',async(req,res)=>{
+    res.render('search')
+})
 
 
 

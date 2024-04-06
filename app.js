@@ -6,6 +6,7 @@ import other from './src/routes/others'
 import common from './src/routes/common'
 import itin from './src/routes/itineraryroute'
 import auth from './src/routes/authRoutes'
+import rout from './src/routes/tripadvisor'
 import { getPlacesData, getWeatherData } from './src/api/travelAdvisorAPI';
 const itineraryRoutes = require('./src/routes/itinerary');
 //const cookieParser = require('cookie-parser');
@@ -36,6 +37,7 @@ app.use('/',other)
 app.use('/',itin)
 app.use('/auth',auth)
 app.use('/itinerary', itineraryRoutes);
+app.use('/api',rout)
 
 app.get('/', (req, res) => {
     res.render('home');

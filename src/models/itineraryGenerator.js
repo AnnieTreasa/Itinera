@@ -1,22 +1,3 @@
-const category =[
-    "Backwater"
-, "Forts and Palaces","Hills", "Waterfalls", "Beaches", "Places of interest", "Picnic spots", "Wildlife" ,"Monuments", "Museums", "Pilgrim Centers" 
-]
-const category_details = [
-    { name: "Backwater", duration: 4, cost: 100 },
-    { name: "Forts and Palaces", duration: 3, cost: 80 },
-    { name: "Hills", duration: 6, cost: 120 },
-    { name: "Waterfalls", duration: 2, cost: 50 },
-    { name: "Beaches", duration: 5, cost: 90 },
-    { name: "Places of interest", duration: 3, cost: 70 },
-    { name: "Picnic spots", duration: 2, cost: 40 },
-    { name: "Wildlife", duration: 4, cost: 80 },
-    { name: "Monuments", duration: 3, cost: 70 },
-    { name: "Museums", duration: 2, cost: 60 },
-    { name: "Pilgrim Centers", duration: 3, cost: 70 }
-];
-
-
 const locations = [
     {
       name: "Munnar",
@@ -52,26 +33,25 @@ const locations = [
       duration: 2,
       cost: 150,
       rating: 4.8,
-     }
-    ,
-    {
-    name: "Periyar",
-    category: "Wildlife",
-    duration: 1,
-    cost: 100,
-    rating: 4.5
     },
     {
-    name: "Varkala",
-    category: "Beach",
-    duration: 0.5,
-    cost: 80,
-    rating: 4.7
+    Name: "Periyar",
+    Category: "Wildlife Sanctuary",
+    Duration: 1,
+    Cost: 100,
+    Rating: 4.5
+    },
+    {
+    Name: "Varkala",
+    Category: "Beach",
+    Duration: 0.5,
+    Cost: 80,
+    Rating: 4.7
     }
     
   ];
 
-  // const _ = require('lodash');
+  const _ = require('lodash');
   function shuffle(array) {
     const shuffled = [...array]; // Create a copy to avoid modifying the original array
     for (let i = shuffled.length - 1; i > 0; i--) {
@@ -139,24 +119,28 @@ const locations = [
       // Combine children with parents for next generation
       population = population.concat(children);
     }
-  
-    // Pick the best itinerary from final population
-    const bestItinerary = population.sort((a, b) => fitness(b) - fitness(a))[0];
-  
-    // Display the itinerary
-    console.log("Best Itinerary:");
-    for (const location of bestItinerary) {
-      console.log(`Name: ${location.name}, Category: ${location.category}, Duration: ${location.duration} days, Cost: ${location.cost}, Rating: ${location.rating}`);
-    }
+    
+    return false;
   }
   
-  // Example usage (set user preferences)
-  const preferences = new Map([
-    ["Hill station", 3], // Weight of 3 for Hill stations
-    ["Backwaters", 1],  // Weight of 1 for Backwaters
-    ["Beach", 2],       // Weight of 2 for Beaches
-    ["Wildlife", 0],   // Weight of 0 for Wildlife (not preferred)
-  ]);
+  backtrack(0, 0, 0, []);
   
-  const result = generateItinerary(5, 4500, preferences); // Call the function
-  
+  return itinerary;
+}
+
+// Example usage (set user preferences)
+const preferences = new Map([
+  ["Hill station", 3], // Weight of 3 for Hill stations
+  ["Backwaters", 1],  // Weight of 1 for Backwaters
+  ["Beach", 2],       // Weight of 2 for Beaches
+  ["Wildlife", 0],   // Weight of 0 for Wildlife (not preferred)
+]);
+
+const itineraries = generateItinerary(5, 450, preferences);
+console.log("Generated Itineraries:");
+for (const itinerary of itineraries) {
+  console.log("----");
+  for (const location of itinerary) {
+    console.log(`Name: ${location.Name}, Category: ${location.Category}, Duration: ${location.Duration} days, Cost: ${location.Cost}, Rating: ${location.Rating}`);
+  }
+}

@@ -164,8 +164,8 @@ const locations = [
           name: "Cliff diving (with caution and at designated spots)",
           time: "Not applicable (Choose a safe time based on conditions)" // Informative placeholder
         },
-        "Paragliding (optional)",
-        time:"all time"
+        {name:"Paragliding (optional)",
+        time:"all time"},
          // Time depends on operator availability (already mentioned)
         {
           name: "Ayurvedic massage",

@@ -1,0 +1,15 @@
+<%- include('partials/header'); -%>
+<h1>Your Generated Itinerary</h1>
+<ol>
+  <% itinerary.forEach(location => { %>
+    <li>
+      <h2><%= location.name %></h2>
+      <p>Category: <%= location.category %></p>
+      <p>Duration: <%= location.duration %> days</p>
+      <p>Cost: <%= location.cost %></p>
+      </li>
+  <% }) %>
+</ol>
+
+
+<%- include('partials/footer'); -%>

@@ -7,12 +7,14 @@ import common from './src/routes/common'
 import itin from './src/routes/itineraryroute'
 import auth from './src/routes/authRoutes'
 import rout from './src/routes/tripadvisor'
-import { getPlacesData, getWeatherData } from './src/api/travelAdvisorAPI';
+// import itn  from './src/routes/itin'
+// import { getPlacesData, getWeatherData } from './src/api/travelAdvisorAPI';
 const itineraryRoutes = require('./src/routes/itinerary');
 //const cookieParser = require('cookie-parser');
 const path = require('path');
 const bodyParser = require('body-parser');
-
+//const itineraryController = require('./src/controller/itineraryController');
+const GoogleGenerativeAI = require("@google/generative-ai");
 
 require('dotenv').config()
 
@@ -38,10 +40,33 @@ app.use('/',itin)
 app.use('/auth',auth)
 app.use('/itinerary', itineraryRoutes);
 app.use('/api',rout)
+// app.use('/',itn)
+
+const apiKey = process.env.GENERATIVE_AI_API_KEY;
+
 
 app.get('/', (req, res) => {
     res.render('home');
 });
+// app.post('/itinerary', itineraryController.handleItinerary);
+
+const itineraryGenerator = require('./src/models/itineraryGenerator');
+
+app.get('/generate-itinerary', (req, res) => {
+  // Gather user inputs
+  const duration = parseInt(req.query.duration);
+  const budget = parseInt(req.query.budget);
+  const preferences = req.query.preferences || {}; // Handle optional preferences
+
+  // Call the itinerary generator
+  const itinerary = itineraryGenerator(duration, budget, preferences);
+
+  // Render the itinerary in a response (example using EJS)
+  res.render('itinerary', { itinerary: itinerary });
+});
+
+
+
 
 // Error handling (optional)
 app.use((err, req, res, next) => {
@@ -49,6 +74,7 @@ app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send('Something went wrong!');
   });
+
 
 // Start the server
 app.listen(process.env.PORT,() => console.log('Server listening on port 3005'));

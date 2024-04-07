@@ -10,5 +10,6 @@ yarn add @google/generative-ai
 yarn add axios
 yarn add body-parser
 yarn add express-session
+yarn add geopy
 
 http://localhost:3005/

@@ -24,6 +24,11 @@ const locations = [
     duration: 2,
     cost: 100,
     rating: 4.5,
+    activities: [
+      "Hiking",
+      "Sightseeing (Photo points)",
+      "Boating in lake(Kundala Lake)"
+    ]
   },
   {
     name: "Alleppey",
@@ -31,6 +36,10 @@ const locations = [
     duration: 1,
     cost: 80,
     rating: 4.0,
+    activities: [
+      "Houseboat cruise",
+      "Local village visit"
+    ]
   },
   {
     name: "Kovalam",
@@ -38,6 +47,12 @@ const locations = [
     duration: 2,
     cost: 120,
     rating: 4.2,
+    activities: [
+      "Sunbathing",
+      "Surfing lessons (optional)",
+      "Catamaran sailing",
+      "Ayurvedic massage"
+    ]
   },
   {
     name: "Thekkady",
@@ -45,6 +60,11 @@ const locations = [
     duration: 1,
     cost: 70,
     rating: 4.7,
+    activities: [
+      "Elephant ride (ethical operators recommended)",
+      "Jeep safari",
+      "Boat ride in Periyar lake"
+    ]
   },
   {
     name: "Wayanad",
@@ -52,24 +72,51 @@ const locations = [
     duration: 2,
     cost: 150,
     rating: 4.8,
-   }
-  ,
-  {
-  name: "Periyar",
-  category: "Wildlife",
-  duration: 1,
-  cost: 100,
-  rating: 4.5
+    activities: [
+      "Trekking (various difficulty levels)",
+      "Bird watching",
+      "Camping",
+      "Ziplining (optional)"
+    ]
   },
   {
-  name: "Varkala",
-  category: "Beach",
-  duration: 0.5,
-  cost: 80,
-  rating: 4.7
+    name: "Periyar",
+    category: "Wildlife",
+    duration: 1,
+    cost: 100,
+    rating: 4.5,
+    activities: [
+      "Boating in Periyar lake",
+      "Tiger spotting (optional)",
+      "Nature walk with guide",
+      " mengunjungi desa adat (visiting tribal villages)" // local activity (assuming you're in Kerala)
+    ]
+  },
+  {
+    name: "Varkala",
+    category: "Beach",
+    duration: 1,
+    cost: 80,
+    rating: 4.7,
+    activities: [
+      "Cliff diving (with caution and at designated spots)",
+      "Paragliding (optional)",
+      "Ayurvedic massage",
+      "Visiting Janardhana Swami Temple" // local cultural activity
+    ]
   }
-  
 ];
+
+const distanceMatrix = [
+  [0, 150, 280, 180, 100, 230, 310], // Kovalam
+  [150, 0, 130, 100, 200, 250, 330], // Thekkady
+  [280, 130, 0, 80, 300, 180, 380], // Wayanad
+  [180, 100, 80, 0, 150, 200, 280], // Periyar
+  [100, 200, 300, 150, 0, 250, 330], // Varkala
+  [230, 250, 180, 200, 250, 0, 180], // Munnar
+  [310, 330, 380, 280, 330, 180, 0]   // Alleppey
+];
+
 
 const _ = require('lodash');
 function shuffle(array) {
@@ -86,25 +133,55 @@ function generateItinerary(duration, budget, preferences) {
   const mutationRate = 0.1;
 
   // Function to calculate fitness score
+  // function fitness(chromosome) {
+  //   let score = 0;
+  //   let totalDuration = 0;
+  //   let totalCost = 0;
+  //   let preferenceScore = 0;
+
+  //   for (const location of chromosome) {
+  //     totalDuration += location.duration;
+  //     totalCost += location.cost;
+  //     preferenceScore += preferences.get(location.category, 0);
+  //   }
+
+  //   // Penalties for exceeding duration or budget
+  //   score -= Math.abs(totalDuration - duration) * 2;
+  //   score -= Math.abs(totalCost - budget) * 1.5;
+  //   score += preferenceScore * 3; // Weight preference score
+
+  //   return score;
+  // }
   function fitness(chromosome) {
     let score = 0;
     let totalDuration = 0;
     let totalCost = 0;
     let preferenceScore = 0;
-
+    const visitedLocations = new Set(); // Keep track of visited locations
+  
     for (const location of chromosome) {
-      totalDuration += location.duration;
-      totalCost += location.cost;
-      preferenceScore += preferences.get(location.category, 0);
+      if (!visitedLocations.has(location.name)) { // Check if location visited before
+        visitedLocations.add(location.name);
+        totalDuration += location.duration;
+        totalCost += location.cost;
+        preferenceScore += preferences.get(location.category, 0);
+      }
     }
-
-    // Penalties for exceeding duration or budget
-    score -= Math.abs(totalDuration - duration) * 2;
+    let activityScore = 0;
+    for (const location of chromosome) {
+      activityScore += location.activities.length; // Simple example, consider user preferences
+    }
+  
+    score += activityScore;
+  
+    // Penalties
+    score -= Math.abs(totalDuration - duration) * 3; // Higher penalty for exceeding duration
     score -= Math.abs(totalCost - budget) * 1.5;
-    score += preferenceScore * 3; // Weight preference score
-
+    score += preferenceScore * 2; // Lower weight on preference to avoid forcing inclusion
+  
     return score;
   }
+  
 
   // Generate random population
   let population = [];
@@ -143,12 +220,36 @@ function generateItinerary(duration, budget, preferences) {
   // Pick the best itinerary from final population
   const bestItinerary = population.sort((a, b) => fitness(b) - fitness(a))[0];
 
-  // Display the itinerary
-  console.log("Best Itinerary:");
-  for (const location of bestItinerary) {
+//   // Display the itinerary
+//   console.log("Best Itinerary:");
+//   let totalDays = 0; // Initialize totalDays outside the loop
+
+// for (const location of bestItinerary) {
+//   if (totalDays + location.duration <= duration) {
+//     console.log(`Name: ${location.name}, Category: ${location.category}, Duration: ${location.duration} days, Cost: ${location.cost}, Rating: ${location.rating}`);
+//     totalDays += location.duration;
+//   } else {
+//     break;
+//   }
+// }
+console.log("Best Itinerary:");
+let totalDays = 0;
+
+for (const location of bestItinerary) {
+  if (totalDays + location.duration <= duration) {
     console.log(`Name: ${location.name}, Category: ${location.category}, Duration: ${location.duration} days, Cost: ${location.cost}, Rating: ${location.rating}`);
+    console.log("Activities:");
+    for (const activity of location.activities) {
+      console.log(`- ${activity}`);
+    }
+    totalDays += location.duration;
+  } else {
+    break;
   }
 }
+
+}
+
 
 // Example usage (set user preferences)
 const preferences = new Map([

@@ -38,6 +38,10 @@ user.delete('/:id', async (req,res)=>{
     res.json(result)
 })
 
-
+user.get('/profile', async (req,res)=>{
+    //const result = await userModel.findByemail(req.params.email)
+    //res.json(result)
+    res.render("common/profile")
+})
 
 export default user

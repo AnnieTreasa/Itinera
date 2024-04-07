@@ -1,28 +1,27 @@
 <%- include('../partials/header'); -%>
 
 <div class="hero" style="
-height: 100vh;  
-background-size: cover; 
-background-position: center; 
-display: flex; 
-background-image:url('/wall.jpg');"
->
+  height: 100vh;  
+  background-size: cover; 
+  background-position: center; 
+  display: flex; 
+  background-image:url('/wall.jpg');
+">
 
   <div class="hero-left" style="flex:1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 20px;
-  padding: 180px;
-  line-height: 1.1;">
-  
-      <div class="hero-hand-icon">
-        
-          <p style="color: #0e0000;
-          font-size: 50px;
-          font-weight: 400;">Let's Start<br/>The Journey....</p>
-      </div>
-      <div class="hero-latest-btn" style="display: flex;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    padding: 180px;
+    line-height: 1.1;">
+
+    <div class="hero-hand-icon">
+      <p style="color: #0e0000;
+        font-size: 50px;
+        font-weight: 400;">Let's Start<br/>The Journey....</p>
+    </div>
+    <div class="hero-latest-btn" style="display: flex;
       justify-content: center;
       align-items: center;
       gap: 15px;
@@ -34,15 +33,12 @@ background-image:url('/wall.jpg');"
       color: rgb(0, 0, 0);
       font-size: 28px;
       font-weight: 80;">
-          <div>
-              <a href="/getitinera">Get Itinerary</a>
-              
-          </div>
+      <div>
+        <a href="/getitinera">Get Itinerary</a>
       </div>
+    </div>
 
-
-
-      <div style="display: flex;
+    <div style="display: flex;
       justify-content: center;
       align-items: center;
       gap: 15px;
@@ -54,12 +50,49 @@ background-image:url('/wall.jpg');"
       color: rgb(0, 0, 0);
       font-size: 28px;
       font-weight: 80;">
-          <a href="/getitineraopenai">Get Itinerary Using Openai</a>
-      </div>
-
+      <a href="/getitineraopenai">Get Itinerary Using OpenAI</a>
+    </div>
 
   </div>
 </div>
 
+<!-- Travel safety tips section -->
+<div class="travel-safety-tips" style="
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40vh;
+">
+  <div>
+    <h2>Travel Safety Tips</h2>
+    <ul>
+      <li>Avoid displaying expensive items in public.</li>
+      <li>Keep your belongings secure and close to you.</li>
+      <li>Research the safety situation of your destination before traveling.</li>
+      <li>Stay aware of your surroundings.</li>
+      <li>Keep emergency contact information handy.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Things to carry during travel section -->
+<div class="things-to-carry" style="
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40vh;
+">
+  <div>
+    <h2>Things to Carry During Travel</h2>
+    <ul>
+      <li>Passport and travel documents</li>
+      <li>Cash and credit cards</li>
+      <li>Medications and first aid kit</li>
+      <li>Travel adapter and chargers</li>
+      <li>Comfortable clothing and shoes</li>
+      <li>Travel-sized toiletries</li>
+    </ul>
+  </div>
+</div>
 
 <%- include('../partials/footer'); -%>

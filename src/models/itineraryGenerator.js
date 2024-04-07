@@ -18,94 +18,120 @@ const category_details = [
 
 
 const locations = [
-  {
-    name: "Munnar",
-    category: "Hill station",
-    duration: 2,
-    cost: 100,
-    rating: 4.5,
-    activities: [
-      "Hiking",
-      "Sightseeing (Photo points)",
-      "Boating in lake(Kundala Lake)"
-    ]
-  },
-  {
-    name: "Alleppey",
-    category: "Backwaters",
-    duration: 1,
-    cost: 80,
-    rating: 4.0,
-    activities: [
-      "Houseboat cruise",
-      "Local village visit"
-    ]
-  },
-  {
-    name: "Kovalam",
-    category: "Beach",
-    duration: 2,
-    cost: 120,
-    rating: 4.2,
-    activities: [
-      "Sunbathing",
-      "Surfing lessons (optional)",
-      "Catamaran sailing",
-      "Ayurvedic massage"
-    ]
-  },
-  {
-    name: "Thekkady",
-    category: "Wildlife",
-    duration: 1,
-    cost: 70,
-    rating: 4.7,
-    activities: [
-      "Elephant ride (ethical operators recommended)",
-      "Jeep safari",
-      "Boat ride in Periyar lake"
-    ]
-  },
-  {
-    name: "Wayanad",
-    category: "Hill station",
-    duration: 2,
-    cost: 150,
-    rating: 4.8,
-    activities: [
-      "Trekking (various difficulty levels)",
-      "Bird watching",
-      "Camping",
-      "Ziplining (optional)"
-    ]
-  },
-  {
-    name: "Periyar",
-    category: "Wildlife",
-    duration: 1,
-    cost: 100,
-    rating: 4.5,
-    activities: [
-      "Boating in Periyar lake",
-      "Tiger spotting (optional)",
-      "Nature walk with guide",
-      " mengunjungi desa adat (visiting tribal villages)" // local activity (assuming you're in Kerala)
-    ]
-  },
-  {
-    name: "Varkala",
-    category: "Beach",
-    duration: 1,
-    cost: 80,
-    rating: 4.7,
-    activities: [
-      "Cliff diving (with caution and at designated spots)",
-      "Paragliding (optional)",
-      "Ayurvedic massage",
-      "Visiting Janardhana Swami Temple" // local cultural activity
-    ]
-  }
-];
+
+    {
+      name: "Munnar",
+      category: "Hill station",
+      duration: 2,
+      cost: 100,
+      rating: 4.5,
+      activities: [
+        {
+          name: "Hiking",
+          time: "Morning (Choose a suitable time range)" // Adjust time range based on preference
+        },
+        "Sightseeing (Photo points)",
+        {
+          name: "Boating in lake(Kundala Lake)",
+          time: "Afternoon (Enjoy scenic views)"
+        }
+      ]
+    },
+    {
+      name: "Alleppey",
+      category: "Backwaters",
+      duration: 1,
+      cost: 80,
+      rating: 4.0,
+      activities: [
+        {
+          name: "Houseboat cruise",
+          time: "Start midday (Enjoy lunch on board)" // Adjust time based on preference
+        },
+        "Local village visit"
+      ]
+    },
+    {
+      name: "Kovalam",
+      category: "Beach",
+      duration: 2,
+      cost: 120,
+      rating: 4.2,
+      activities: [
+        "Sunbathing",
+        {
+          name: "Surfing lessons (optional)",
+          time: "Morning (Ideal wave conditions)" // Adjust time based on season
+        },
+        "Catamaran sailing",
+        "Ayurvedic massage"
+      ]
+    },
+    {
+      name: "Thekkady",
+      category: "Wildlife",
+      duration: 1,
+      cost: 70,
+      rating: 4.7,
+      activities: [
+        {
+          name: "Elephant ride (ethical operators recommended)",
+          time: "Early morning (Pleasant weather for animals)"
+        },
+        "Jeep safari",
+        {
+          name: "Boat ride in Periyar lake",
+          time: "Late afternoon (Increased chance of wildlife sightings)"
+        }
+      ]
+    },
+    {
+      name: "Wayanad",
+      category: "Hill station",
+      duration: 2,
+      cost: 150,
+      rating: 4.8,
+      activities: [
+        {
+          name: "Trekking (various difficulty levels)",
+          time: "Morning (Cooler temperatures)"
+        },
+        "Bird watching",
+        "Camping",
+        "Ziplining (optional)"
+      ]
+    },
+    {
+      name: "Periyar",
+      category: "Wildlife",
+      duration: 1,
+      cost: 100,
+      rating: 4.5,
+      activities: [
+        "Boating in Periyar lake",
+        "Tiger spotting (optional)",
+        {
+          name: "Nature walk with guide",
+          time: "Early morning (Spot nocturnal animals)"
+        },
+        " mengunjungi desa adat (visiting tribal villages)" // local activity (assuming you're in Kerala)
+      ]
+    },
+    {
+      name: "Varkala",
+      category: "Beach",
+      duration: 1,
+      cost: 80,
+      rating: 4.7,
+      activities: [
+        "Cliff diving (with caution and at designated spots)",
+        "Paragliding (optional)",
+        "Ayurvedic massage",
+        "Visiting Janardhana Swami Temple" // local cultural activity
+      ]
+    }
+  ];
+  
 
 const distanceMatrix = [
   [0, 150, 280, 180, 100, 230, 310], // Kovalam
@@ -132,30 +158,12 @@ function generateItinerary(duration, budget, preferences) {
   const populationSize = 10;
   const mutationRate = 0.1;
 
-  // Function to calculate fitness score
-  // function fitness(chromosome) {
-  //   let score = 0;
-  //   let totalDuration = 0;
-  //   let totalCost = 0;
-  //   let preferenceScore = 0;
 
-  //   for (const location of chromosome) {
-  //     totalDuration += location.duration;
-  //     totalCost += location.cost;
-  //     preferenceScore += preferences.get(location.category, 0);
-  //   }
-
-  //   // Penalties for exceeding duration or budget
-  //   score -= Math.abs(totalDuration - duration) * 2;
-  //   score -= Math.abs(totalCost - budget) * 1.5;
-  //   score += preferenceScore * 3; // Weight preference score
-
-  //   return score;
-  // }
   function fitness(chromosome) {
     let score = 0;
     let totalDuration = 0;
     let totalCost = 0;
+    let totalDistance = 0; 
     let preferenceScore = 0;
     const visitedLocations = new Set(); // Keep track of visited locations
   
@@ -165,6 +173,12 @@ function generateItinerary(duration, budget, preferences) {
         totalDuration += location.duration;
         totalCost += location.cost;
         preferenceScore += preferences.get(location.category, 0);
+        // Calculate distance penalty (replace 2 with a suitable weight)
+    if (chromosome.indexOf(location) > 0) { // Avoid penalty for the first location
+      const previousLocation = chromosome[chromosome.indexOf(location) - 1];
+      totalDistance += distanceMatrix[locations.indexOf(previousLocation)][locations.indexOf(location)];
+    }
+  
       }
     }
     let activityScore = 0;
@@ -178,7 +192,7 @@ function generateItinerary(duration, budget, preferences) {
     score -= Math.abs(totalDuration - duration) * 3; // Higher penalty for exceeding duration
     score -= Math.abs(totalCost - budget) * 1.5;
     score += preferenceScore * 2; // Lower weight on preference to avoid forcing inclusion
-  
+    score -= totalDistance * 0.1; // Penalize for higher total distance
     return score;
   }
   

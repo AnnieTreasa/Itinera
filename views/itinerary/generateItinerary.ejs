@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kerala Trip Planner</title>
+</head>
+<body>
+    <h1>Kerala Trip Planner</h1>
+    <form id="itineraryForm">
+        <label for="duration">Duration (days):</label>
+        <input type="number" id="duration" name="duration" min="1" required><br>
+        <label for="budget">Budget (INR):</label>
+        <input type="number" id="budget" name="budget" min="1" required><br>
+
+        <h3>Preferred Categories:</h3>
+<input type="checkbox" id="hillStation" name="category" value="Hill station">
+<label for="hillStation">Hill station</label>
+<select id="hillStationWeight">
+  <option value="0">Not Preferred</option>
+  <option value="1">Low Preference</option>
+  <option value="2">Medium Preference</option>
+  <option value="3">High Preference</option>
+</select><br>
+
+<input type="checkbox" id="backwaters" name="category" value="Backwaters">
+<label for="backwaters">Backwaters</label>
+<select id="backwatersWeight">
+  <option value="0">Not Preferred</option>
+  <option value="1">Low Preference</option>
+  <option value="2">Medium Preference</option>
+  <option value="3">High Preference</option>
+</select><br>
+
+<input type="checkbox" id="Beaches" name="category" value="Beaches">
+<label for="Beaches">Beaches</label>
+<select id="BeachesWeight">
+  <option value="0">Not Preferred</option>
+  <option value="1">Low Preference</option>
+  <option value="2">Medium Preference</option>
+  <option value="3">High Preference</option>
+</select><br>
+
+<input type="checkbox" id="wildlife" name="category" value="wildlife">
+<label for="wildlife">wildlife</label>
+<select id="wildlifeWeight">
+  <option value="0">Not Preferred</option>
+  <option value="1">Low Preference</option>
+  <option value="2">Medium Preference</option>
+  <option value="3">High Preference</option>
+</select><br>
+
+
+
+        <button type="submit">Generate Itinerary</button>
+    </form>
+
+    <div id="itinerary"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

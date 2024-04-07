@@ -326,6 +326,8 @@ for (const location of bestItinerary) {
 }
 
 
+export default  generateItinerary;
+
 // Example usage (set user preferences)
 const preferences = new Map([
   ["Hill station", 3], // Weight of 3 for Hill stations

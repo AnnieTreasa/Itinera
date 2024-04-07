@@ -80,6 +80,8 @@ other.get('/itinerary',async(req,res)=>{
 })
 
 
-
+other.get('/generate_itinera',async(req,res)=>{
+    res.render('itinerary/generateitinerary')
+})
 
 export default other;

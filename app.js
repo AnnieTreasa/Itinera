@@ -7,6 +7,7 @@ import common from './src/routes/common'
 import itin from './src/routes/itineraryroute'
 import auth from './src/routes/authRoutes'
 import rout from './src/routes/tripadvisor'
+import search from './src/routes/search';
 // import itn  from './src/routes/itin'
 // import { getPlacesData, getWeatherData } from './src/api/travelAdvisorAPI';
 const itineraryRoutes = require('./src/routes/itinerary');
@@ -14,7 +15,9 @@ const itineraryRoutes = require('./src/routes/itinerary');
 const path = require('path');
 const bodyParser = require('body-parser');
 //const itineraryController = require('./src/controller/itineraryController');
-const GoogleGenerativeAI = require("@google/generative-ai");
+//const GoogleGenerativeAI = require("@google/generative-ai");
+const { getTravelTime } = require('./src/models/itin'); // Assuming the function is in a separate file
+const { findPOIs, findTravelTime } = require('./src/models/itin');
 
 require('dotenv').config()
 
@@ -37,12 +40,13 @@ app.use('/user',user)
 app.use('/',common)
 app.use('/',other)
 app.use('/',itin)
+app.use('/',search )
 app.use('/auth',auth)
 app.use('/itinerary', itineraryRoutes);
 app.use('/api',rout)
 // app.use('/',itn)
 
-const apiKey = process.env.GENERATIVE_AI_API_KEY;
+//const apiKey = process.env.GENERATIVE_AI_API_KEY;
 
 
 app.get('/', (req, res) => {

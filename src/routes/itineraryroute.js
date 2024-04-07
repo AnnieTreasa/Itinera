@@ -10,6 +10,11 @@ itin.get('/getitinera',async(req,res)=>{
     res.render('itinerary/getitinera')
 })
 
+itin.get('/getitinerai/',async(req,res)=>{
+ res.render( 'itinerary/munnar'); 
+
+})
+
 
 itin.post('/itinera', async (req, res) => {
     const { destination, startDate, numberOfDays, budget, travelType } = req.body;

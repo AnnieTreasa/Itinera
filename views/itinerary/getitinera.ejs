@@ -9,8 +9,8 @@
     <h1 style="text-align: center;">Get Your Itinerary</h1>
     <form id="itineraryForm">
         <div>
-            <label for="destination">Destination:</label>
-            <input type="text" id="destination" required>
+            <label for="destination">Orgin:</label>
+            <input type="text" id="start_city" required>
         </div>
         
         <div>
@@ -62,19 +62,21 @@
         event.preventDefault();
 
         // Get form input values
-        const destination = document.getElementById('destination').value;
+        const destination = document.getElementById('start_city').value;
         const startDate = document.getElementById('startDate').value;
         const numberOfDays = document.getElementById('numberOfDays').value;
         const budget = document.getElementById('budget').value;
         const travelType = document.getElementById('travelType').value;
 
         // Log input values to the console
-        console.log('Destination:', destination);
+        console.log('Start_city:', start_city);
         console.log('Start Date:', startDate);
         console.log('Number of Days:', numberOfDays);
         console.log('Budget:', budget);
         console.log('Travel Type:', travelType);
 
+
         // You can perform further actions here, such as sending the data to a server or processing it.
+        //window.location.href = '/itinerary';
     });
 </script>

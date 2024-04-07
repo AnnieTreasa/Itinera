@@ -3,13 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TripAdvisor Location Search</title>
-  <link rel="stylesheet" href="style.css"> </head>
+  <title>Search Places</title>
+</head>
 <body>
-  <h1>TripAdvisor Location Search</h1>
-  <input type="text" id="location-search" placeholder="Enter Location">
-  <button id="search-button">Search</button>
-  <div id="results"></div>
-  <script src="script.js"></script>
+  <h1>Search Places</h1>
+  <form action="/search-places" method="post">
+    <label for="searchTerm">Search Term:</label>
+    <input type="text" id="searchTerm" name="searchTerm" required>
+
+    <label for="location">Location (optional):</label>
+    <input type="text" id="location" name="location">
+
+    <button type="submit">Search</button>
+  </form>
 </body>
 </html>

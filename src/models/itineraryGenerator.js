@@ -52,25 +52,26 @@ const locations = [
       duration: 2,
       cost: 150,
       rating: 4.8,
+     }
+    ,
+    {
+    name: "Periyar",
+    category: "Wildlife",
+    duration: 1,
+    cost: 100,
+    rating: 4.5
     },
     {
-    Name: "Periyar",
-    Category: "Wildlife Sanctuary",
-    Duration: 1,
-    Cost: 100,
-    Rating: 4.5
-    },
-    {
-    Name: "Varkala",
-    Category: "Beach",
-    Duration: 0.5,
-    Cost: 80,
-    Rating: 4.7
+    name: "Varkala",
+    category: "Beach",
+    duration: 0.5,
+    cost: 80,
+    rating: 4.7
     }
     
   ];
 
-  const _ = require('lodash');
+  // const _ = require('lodash');
   function shuffle(array) {
     const shuffled = [...array]; // Create a copy to avoid modifying the original array
     for (let i = shuffled.length - 1; i > 0; i--) {

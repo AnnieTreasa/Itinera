@@ -32,7 +32,7 @@ const locations = [
         },
         {
           name:"Sightseeing (Photo points)",
-          time:"all time"
+          time:"Throughout the day"
         },
         {
           name: "Boating in lake(Kundala Lake)",
@@ -53,7 +53,7 @@ const locations = [
         },
         {
           name:"Local village visit",
-          time:"all time"
+          time:"Throughout the day"
         }
       ]
     },
@@ -74,11 +74,11 @@ const locations = [
         },
         {
           name:"Catamaran sailing",
-          time:"all time"
+          time:"Throughout the day"
         },
         {
           name:"Ayurvedic massage",
-          time:"all time"
+          time:"Throughout the day"
         }
       ]
     },
@@ -95,7 +95,7 @@ const locations = [
         },
         {
           name:"Jeep safari",
-          time:"all time"
+          time:"Throughout the day"
         },
         {
           name: "Boat ride in Periyar lake",
@@ -116,7 +116,7 @@ const locations = [
         },
         {
           name:"Bird watching",
-          time:"all time"
+          time:"Throughout the day"
         },
         {
           name:"Camping",
@@ -124,7 +124,7 @@ const locations = [
         },
         {
           name:"Ziplining (optional)",
-          time:"all time"
+          time:"Throughout the day"
         }
       ]
     },
@@ -137,11 +137,11 @@ const locations = [
       activities: [
         {
           name:"Boating in Periyar lake",
-          time:"all time"
+          time:"Throughout the day"
         },
         {
           name:"Tiger spotting (optional)",
-          time:"all time"
+          time:"Throughout the day"
         },
         {
           name: "Nature walk with guide",
@@ -149,7 +149,7 @@ const locations = [
         },
         {
           name:" mengunjungi desa adat (visiting tribal villages)", // local activity (assuming you're in Kerala),
-          time:"all time"
+          time:"Throughout the day"
         }
       ]
     },
@@ -165,7 +165,7 @@ const locations = [
           time: "Not applicable (Choose a safe time based on conditions)" // Informative placeholder
         },
         {name:"Paragliding (optional)",
-        time:"all time"},
+        time:"Throughout the day"},
          // Time depends on operator availability (already mentioned)
         {
           name: "Ayurvedic massage",
@@ -315,7 +315,7 @@ for (const location of bestItinerary) {
     console.log(`Name: ${location.name}, Category: ${location.category}, Duration: ${location.duration} days, Cost: ${location.cost}, Rating: ${location.rating}`);
     console.log("Activities:");
     for (const activity of location.activities) {
-      console.log(`- ${activity.name}`);
+      console.log(`- ${activity.name} [ ${activity.time}]`);
     }
     totalDays += location.duration;
   } else {

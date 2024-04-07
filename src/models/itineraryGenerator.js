@@ -148,12 +148,30 @@ const locations = [
       cost: 80,
       rating: 4.7,
       activities: [
-        "Cliff diving (with caution and at designated spots)",
-        "Paragliding (optional)",
-        "Ayurvedic massage",
-        "Visiting Janardhana Swami Temple" // local cultural activity
+        {
+          name: "Cliff diving (with caution and at designated spots)",
+          time: "Not applicable (Choose a safe time based on conditions)" // Informative placeholder
+        },
+        {name:"Paragliding (optional)",}, // Time depends on operator availability (already mentioned)
+        {
+          name: "Ayurvedic massage",
+          time: "Morning or Afternoon (Choose based on preference)"
+        },
+        {
+          name: "Visiting Janardhana Swami Temple",
+          time: "Mid-morning (Avoid peak heat)"
+        },
+        {
+          name: "Sunbathing",
+          time: "Morning (Less crowded)" // Assuming sunbathing is a potential activity
+        },
+        {
+          name: "Exploring local markets",
+          time: "Midday (Enjoy the vibe)" // Assuming exploring markets is a potential activity
+        }
       ]
     }
+    
   ];
   
 

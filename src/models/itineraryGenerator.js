@@ -152,7 +152,7 @@ const locations = [
           name: "Cliff diving (with caution and at designated spots)",
           time: "Not applicable (Choose a safe time based on conditions)" // Informative placeholder
         },
-        {name:"Paragliding (optional)",}, // Time depends on operator availability (already mentioned)
+        "Paragliding (optional)", // Time depends on operator availability (already mentioned)
         {
           name: "Ayurvedic massage",
           time: "Morning or Afternoon (Choose based on preference)"
@@ -168,9 +168,14 @@ const locations = [
         {
           name: "Exploring local markets",
           time: "Midday (Enjoy the vibe)" // Assuming exploring markets is a potential activity
+        },
+        {
+          name: "Relaxing by the beach",
+          time: "Throughout the day" // Flexible activity
         }
       ]
     }
+    
     
   ];
   
@@ -296,7 +301,7 @@ for (const location of bestItinerary) {
     console.log(`Name: ${location.name}, Category: ${location.category}, Duration: ${location.duration} days, Cost: ${location.cost}, Rating: ${location.rating}`);
     console.log("Activities:");
     for (const activity of location.activities) {
-      console.log(`- ${activity}`);
+      console.log(`- ${activity.name}`);
     }
     totalDays += location.duration;
   } else {

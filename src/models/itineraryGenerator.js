@@ -30,7 +30,9 @@ const locations = [
           name: "Hiking",
           time: "Morning (Choose a suitable time range)" // Adjust time range based on preference
         },
-        "Sightseeing (Photo points)",
+        {
+          name:"Sightseeing (Photo points)"
+        },
         {
           name: "Boating in lake(Kundala Lake)",
           time: "Afternoon (Enjoy scenic views)"
@@ -48,7 +50,9 @@ const locations = [
           name: "Houseboat cruise",
           time: "Start midday (Enjoy lunch on board)" // Adjust time based on preference
         },
-        "Local village visit"
+        {
+          name:"Local village visit"
+        }
       ]
     },
     {
@@ -58,13 +62,19 @@ const locations = [
       cost: 120,
       rating: 4.2,
       activities: [
-        "Sunbathing",
+        {
+          name:"Sunbathing"
+        },
         {
           name: "Surfing lessons (optional)",
           time: "Morning (Ideal wave conditions)" // Adjust time based on season
         },
-        "Catamaran sailing",
-        "Ayurvedic massage"
+        {
+          name:"Catamaran sailing"
+        },
+        {
+          name:"Ayurvedic massage"
+        }
       ]
     },
     {
@@ -78,7 +88,9 @@ const locations = [
           name: "Elephant ride (ethical operators recommended)",
           time: "Early morning (Pleasant weather for animals)"
         },
-        "Jeep safari",
+        {
+          name:"Jeep safari"
+        },
         {
           name: "Boat ride in Periyar lake",
           time: "Late afternoon (Increased chance of wildlife sightings)"
@@ -96,9 +108,15 @@ const locations = [
           name: "Trekking (various difficulty levels)",
           time: "Morning (Cooler temperatures)"
         },
-        "Bird watching",
-        "Camping",
-        "Ziplining (optional)"
+        {
+          name:"Bird watching"
+        },
+        {
+          name:"Camping"
+        },
+        {
+          name:"Ziplining (optional)"
+        }
       ]
     },
     {
@@ -108,13 +126,19 @@ const locations = [
       cost: 100,
       rating: 4.5,
       activities: [
-        "Boating in Periyar lake",
-        "Tiger spotting (optional)",
+        {
+          name:"Boating in Periyar lake"
+        },
+        {
+          name:"Tiger spotting (optional)"
+        },
         {
           name: "Nature walk with guide",
           time: "Early morning (Spot nocturnal animals)"
         },
-        " mengunjungi desa adat (visiting tribal villages)" // local activity (assuming you're in Kerala)
+        {
+          name:" mengunjungi desa adat (visiting tribal villages)" // local activity (assuming you're in Kerala)
+        }
       ]
     },
     {

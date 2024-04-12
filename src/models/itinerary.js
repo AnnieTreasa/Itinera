@@ -1,10 +1,6 @@
-// <<<<<<< main
+
 
 const neo4jDriver = require('neo4j-driver');
-// =======
-// const neo4jDriver = require('neo4j-driver');
-
-// >>>>>>> main
 require('dotenv').config()
 const {
     url,
@@ -12,15 +8,12 @@ const {
     db_password
 }=process.env
 
-// <<<<<<< main
-// =======
 
-// >>>>>>> main
 const driver = neo4jDriver.driver(url, neo4jDriver.auth.basic(db_username, db_password));
 const session = driver.session();
 
 
-// <<<<<<< main
+
 // Function to retrieve all cities
 const findAllCities = async () => {
     const result = await session.run(`MATCH (c:City) RETURN c`);
@@ -50,7 +43,7 @@ export default {
     findAllActivities,
     findCitiesAndActivities
 };
-//=======
+
 
 async function generateItinerary(destination, startDate, numberOfDays, budget, travelType) {
   
@@ -87,4 +80,3 @@ async function generateItinerary(destination, startDate, numberOfDays, budget, t
   }
 
   
-//>>>>>>> main

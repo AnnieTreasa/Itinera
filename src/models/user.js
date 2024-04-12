@@ -37,6 +37,47 @@ const create = async (user) =>{
     await session.run(`CREATE (u:User {_id : '${unique_id}', name: '${user.username}', email: '${user.email}', password: '${user.password}', role: '${user.role}' }) return u`)
     return await findById(unique_id)
 }
+
+const create_guide = async (user) =>{
+    const unique_id = nanoid(8)
+    await session.run(`CREATE (u:User {_id : '${unique_id}', name: '${user.username}', email: '${user.email}', password: '${user.password}', role: '${user.role}',fee:'${user.fee}',languagesKnown:'${user.languagesKnown}' }) return u`)
+    return await findById(unique_id)
+}
+
+const create_taxi_driver = async (driverData) => {
+    const { username, email, password, fee, vehicleType, seatingAvailability, taxiNumber, location, languagesKnown, isGuide, startTime, endTime } = driverData;
+  
+    const unique_id = nanoid(8); // Generate a unique ID
+  
+    const query = `
+      CREATE (driver:TaxiDriver {
+        _id: '${unique_id}',
+        username: '${username}',
+        email: '${email}',
+        password: '${password}',
+        fee: ${fee},  // Assuming fee is a number
+        vehicleType: '${vehicleType}',
+        seatingAvailability: ${seatingAvailability},  // Assuming seatingAvailability is a number
+        taxiNumber: '${taxiNumber}',
+        location: '${location}',
+        languagesKnown: '${languagesKnown}',
+        isGuide: '${isGuide}',
+        role: '${role}'
+      })
+      RETURN driver
+    `;
+  
+    try {
+      const result = await session.run(query);
+      const driver = result.records[0].get('driver');  // Get the created driver node
+      return driver;
+    } catch (error) {
+      console.error(error);
+      throw new Error('Error creating taxi driver');  // Re-throw for handling in the calling code
+    }
+  };
+  
+
 const findByIdAndUpdate = async (id, user) =>{
     const result = await session.run(`MATCH (u:User {_id : '${id}'}) SET u.name= '${user.name}', u.email= '${user.email}', u.password= '${user.password}' return u`)
     return result.records[0].get('u').properties
@@ -46,12 +87,22 @@ const findByIdAndDelete = async (id) =>{
     return await findAll()
 }
 
+
+
+
+
+
+
+
 export default {
     findAll,
     findById,
     create,
     findByIdAndUpdate,
     findByIdAndDelete,
-    findByemail
+    findByemail,
+    create_guide,
+    create_taxi_driver
+   
 }
    

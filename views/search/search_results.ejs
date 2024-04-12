@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Results</title>
+</head>
+<body>
+  <h1>Search Results</h1>
+
+  <% if (error) { %>
+    <p class="error">Error: <%= error %></p>
+  <% } else if (places.length === 0) { %>
+    <p>No places found for your search.</p>
+  <% } else { %>
+    <ul class="places-list">
+      <% for (const place of places) { %>
+        <li>
+          <h2><%= place.name %></h2>
+          <p><%= place.address %></p>
+          <% if (place.rating) { %>
+            <p>Rating: <%= place.rating %> stars</p>
+          <% } %>
+          <% if (place.icon) { %>
+            <img src="<%= place.icon %>" alt="Place icon" width="50" height="50">
+          <% } %>
+        </li>
+      <% } %>
+    </ul>
+  <% } %>
+</body>
+</html>

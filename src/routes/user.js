@@ -21,6 +21,15 @@ user.post('/', async (req,res)=>{
     const result = await userModel.create(req.body)
     res.json(result)
 })
+
+user.post('/guideSignUp', async (req,res)=>{
+    const result = await userModel.create_guide(req.body)
+    res.json(result)
+})
+user.post('/taxi_register', async (req,res)=>{
+    const result = await userModel.create_taxi_driver(req.body)
+    res.json(result)
+})
 user.put('/:id', async (req,res)=>{
     const result = await userModel.findByIdAndUpdate(req.params.id, req.body)
     res.json(result)
@@ -32,4 +41,8 @@ user.delete('/:id', async (req,res)=>{
 
 
 
+
+
+
 export default user
+

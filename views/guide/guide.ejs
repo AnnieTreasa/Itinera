@@ -1,62 +1,68 @@
 <%- include('../partials/header1'); -%>
 
-<h2>Guide Signup</h2>
-<form action="/guide_home" onsubmit="return validatePassword()">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required><br><br>
-    
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required><br><br>
-    
-    <label for="confirmPassword">Confirm Password:</label>
+<div class="container">
+  <h2>Sign Up</h2>
+  <form id="guide_signup_form">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required>
+
+      <label for="confirmPassword">Confirm Password:</label>
     <input type="password" id="confirmPassword" name="confirmPassword" required><br><br>
 
-    <label for="availableDays">Available Days:</label><br>
-    <input type="checkbox" id="sunday" name="availableDays" value="Sunday">
-    <label for="sunday">Sunday</label>
-    <input type="checkbox" id="monday" name="availableDays" value="Monday">
-    <label for="monday">Monday</label>
-    <input type="checkbox" id="tuesday" name="availableDays" value="Tuesday">
-    <label for="tuesday">Tuesday</label>
-    <input type="checkbox" id="wednesday" name="availableDays" value="Wednesday">
-    <label for="wednesday">Wednesday</label>
-    <input type="checkbox" id="thursday" name="availableDays" value="Thursday">
-    <label for="thursday">Thursday</label>
-    <input type="checkbox" id="friday" name="availableDays" value="Friday">
-    <label for="friday">Friday</label>
-    <input type="checkbox" id="saturday" name="availableDays" value="Saturday">
-    <label for="saturday">Saturday</label><br><br>
-
-    <label for="fee">Fee:</label>
+    <label for="fee">Fee per hour:</label>
     <input type="number" id="fee" name="fee" required><br><br>
 
-    <label for="languagesKnown">Languages Known:</label><br>
-    <input type="checkbox" id="english" name="languagesKnown" value="English">
-    <label for="english">English</label>
-    <input type="checkbox" id="malayalam" name="languagesKnown" value="Malayalam">
-    <label for="malayalam">Malayalam</label>
-    <!-- Add more languages as needed -->
+    <label for="languagesKnown">Languages Known:</label>
+    <input type="text" id="languagesKnown" name="languagesKnown" required><br><br>
 
-    <label for="location">Location:</label>
-    <input type="text" id="location" name="location" required><br><br>
+      <input type="submit" value="Sign Up">
+  </form>
+</div>
+<div id="signup_link">
+  Already have an account? <a href="\login" id="signup_or_signout">Login</a>
+</div>
 
-    <button type="submit">Signup</button>
-</form>
-
-<p>Already have an account? <a href="/guide_login">Login</a></p>
-<p>Forgot password? <a href="/admin_forgot_password">Reset Password</a></p>
-<p>Go to <a href="/">Home</a></p>
 
 <%- include('../partials/footer'); -%>
 
 <script>
-    function validatePassword() {
-      var password = document.getElementById("password").value;
-      var confirmPassword = document.getElementById("confirmPassword").value;
-      if (password !== confirmPassword) {
-        alert("Passwords do not match!");
-        return false;
-      }
-      return true;
+  const signupForm = document.getElementById('guide_signup_form');
+
+  signupForm.addEventListener('submit', async (event) => {
+    event.preventDefault(); // Prevent default form submission
+
+    const username = document.getElementById('username').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const fee = document.getElementById('fee').value; 
+    const languagesKnown = document.getElementById('languagesKnown').value;
+    const role = 'Guide'
+
+    // Basic client-side validation (optional but recommended)
+    if (!username || !email || !password) {
+      alert('Please fill in all required fields.');
+      return;
     }
+
+    const response = await fetch('/user/guideSignUp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, email, password, role, languagesKnown, fee }) // Send data as JSON
+    });
+
+    if (response.ok) { // Handle successful registration
+      alert('Registration successful!');
+      // Optionally redirect to login page or other confirmation page
+      window.location.href = '/guide_home'; // Redirect to home
+    } else { // Handle errors
+      const errorData = await response.json();
+      alert(errorData.message || 'Registration failed. Please try again.');
+    }
+  });
 </script>

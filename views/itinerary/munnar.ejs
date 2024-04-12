@@ -7,31 +7,7 @@
     border: 1px solid #ccc;
     border-radius: 5px;">
     <h1 style="text-align: center;">Itinera</h1>
-    <div>
-        <label for="destinationCountry">Destination:</label>
-        <input type="text" id="destinationCountry" required>
-    </div>
-    <div>
-        <label for="budget">Budget(Rs):</label>
-        <input type="text" id="budget">
-    </div>
-    <div>
-        <label for="travelStyle">Travel Style:</label>
-        <input type="text" id="travelStyle">
-    </div>
-    <div>
-        <label for="NoofDays"> Number of Days:</label>
-        <input type="text" id="NoofDays">
-    </div>
-    <div>
-        <button id="getItineraryButton" style="width: 100%;
-            padding: 10px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;">Get your Itinerary</button>
-    </div>
+    
     <div id="output">
         <h2>Your Travel Plan:</h2>
         <ul id="itineraryList"></ul>
@@ -42,25 +18,18 @@
 <%- include('../partials/footer'); -%>
 
 <script>
-    document.getElementById("getItineraryButton").addEventListener("click", async function() {
-        const destinationCountry = document.getElementById("destinationCountry").value;
-        const budget = document.getElementById("budget").value;
-        const travelStyle = document.getElementById("travelStyle").value;
-        const NoofDays = document.getElementById("NoofDays").value;
-
-        // Log input values to the console
-        console.log('Destination:', destinationCountry);
-        console.log('Budget(Rs):', budget);
-        console.log('Travel Style:', travelStyle);
-        console.log('No of days:', NoofDays)
+    
+        const destinationCountry ="Munnar"
+        
+       
         const prompt = 
         
-        `Generate a personalized travel itinerary for a trip to ${destinationCountry} with a budget of ${budget} and number of days ${NoofDays} along with timestamps. The traveler is interested in a ${travelStyle} vacation`
+        `Generate a personalized travel itinerary for a trip to Munnar with a budget of 100 and number of days 1 along with timestamps. The traveler is interested in a relaxed vacation`
         //`give top 15 locations to visit in ${destinationCountry} with there latitude and longitude in json format`; 
 
         
-        const API_KEY="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";
-        //const API_KEY="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";
+        //const API_KEY="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";
+        const API_KEY="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";
         const APIBody = {
             "model": "gpt-3.5-turbo-0125",
             "messages": [
@@ -107,5 +76,5 @@
 
        // document.getElementById("output").innerHTML = "<h2>Your Travel Plan:</h2>" + itinerary ;
         
-    });
+    
 </script>

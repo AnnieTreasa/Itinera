@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kerala Trip Planner</title>
-</head>
-<body>
-    <h1>Kerala Trip Planner</h1>
+<%- include('../partials/header'); -%>
+  <div class="App" style="font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-image: url(/Frame.png);">
+    <h1 style="text-align: center;">Kerala Trip Planner</h1>
     <form id="itineraryForm">
         <label for="duration">Duration (days):</label>
         <input type="number" id="duration" name="duration" min="1" required><br>
@@ -14,41 +14,38 @@
         <input type="number" id="budget" name="budget" min="1" required><br>
 
         <h3>Preferred Categories:</h3>
-<input type="checkbox" id="hillStation" name="category" value="Hill station">
-<label for="hillStation">Hill station</label>
-<select id="hillStationWeight">
-  <option value="0">Not Preferred</option>
-  <option value="1">Low Preference</option>
-  <option value="2">Medium Preference</option>
-  <option value="3">High Preference</option>
-</select><br>
 
-<input type="checkbox" id="backwaters" name="category" value="Backwaters">
-<label for="backwaters">Backwaters</label>
-<select id="backwatersWeight">
-  <option value="0">Not Preferred</option>
-  <option value="1">Low Preference</option>
-  <option value="2">Medium Preference</option>
-  <option value="3">High Preference</option>
-</select><br>
+        <label for="hillStation">Hill station:</label>
+        <select id="hillStationWeight">
+            <option value="0">Not Preferred</option>
+            <option value="1">Low Preference</option>
+            <option value="2">Medium Preference</option>
+            <option value="3">High Preference</option>
+        </select><br>
 
-<input type="checkbox" id="Beaches" name="category" value="Beaches">
-<label for="Beaches">Beaches</label>
-<select id="BeachesWeight">
-  <option value="0">Not Preferred</option>
-  <option value="1">Low Preference</option>
-  <option value="2">Medium Preference</option>
-  <option value="3">High Preference</option>
-</select><br>
+        <label for="backwaters">Backwaters:</label>
+        <select id="backwatersWeight">
+            <option value="0">Not Preferred</option>
+            <option value="1">Low Preference</option>
+            <option value="2">Medium Preference</option>
+            <option value="3">High Preference</option>
+        </select><br>
 
-<input type="checkbox" id="wildlife" name="category" value="wildlife">
-<label for="wildlife">wildlife</label>
-<select id="wildlifeWeight">
-  <option value="0">Not Preferred</option>
-  <option value="1">Low Preference</option>
-  <option value="2">Medium Preference</option>
-  <option value="3">High Preference</option>
-</select><br>
+        <label for="Beaches">Beaches:</label>
+        <select id="BeachesWeight">
+            <option value="0">Not Preferred</option>
+            <option value="1">Low Preference</option>
+            <option value="2">Medium Preference</option>
+            <option value="3">High Preference</option>
+        </select><br>
+
+        <label for="wildlife">Wildlife:</label>
+        <select id="wildlifeWeight">
+            <option value="0">Not Preferred</option>
+            <option value="1">Low Preference</option>
+            <option value="2">Medium Preference</option>
+            <option value="3">High Preference</option>
+        </select><br>
 
 
 
@@ -57,6 +54,39 @@
 
     <div id="itinerary"></div>
 
-    <script src="script.js"></script>
-</body>
-</html>
+    
+  </div>
+
+ 
+<%- include('../partials/footer'); -%> 
+<script>
+  import generateItinerary from "../../src/models/itineraryGenerator";
+
+
+const form = document.getElementById('itineraryForm');
+const itineraryContainer = document.getElementById('itinerary');
+
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+  console.log("hello");
+  const duration = (document.getElementById('duration').value);
+  const budget = (document.getElementById('budget').value);
+
+
+  // Create a Map to store user preferences (weight for each category)
+  const preferences = new Map();
+  const categories = document.querySelectorAll('input[name="category"]');
+  for (const category of categories) {
+    const weight = parseInt(category.parentElement.querySelector('select').value);
+    preferences.set(category.value, weight);
+  }
+  console.log(duration, budget, preferences);
+
+  // Generate the itinerary and display results in HTML
+
+  // Call the generateItinerary function and display the result in the itinerary container
+  const itinerary = generateItinerary(duration, budget, preferences);
+  console.log(itinerary);
+  itineraryContainer.innerHTML = itinerary;
+});
+</script>

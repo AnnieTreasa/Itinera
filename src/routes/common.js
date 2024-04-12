@@ -10,10 +10,21 @@ common.get('/explore',async(req,res)=>{
     res.render('common/explore')
 })
 
+common.get('/profile', async (req,res)=>{
+   
+  res.render("common/profile")
+})
+
+common.get('/result', async (req,res)=>{
+   
+  res.render("result")
+})
 
 common.get('/login',async(req,res)=>{
     res.render('common/logins')
 })
+
+
 const apiKey = 'AIzaSyBuMGFCVwJASWb-3OR4ys86mUSpw3aL0lQ';
 common.post('/search-places', async (req, res) => {
     const searchTerm = req.body.searchTerm;

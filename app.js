@@ -52,6 +52,9 @@ app.use('/api',rout)
 app.get('/', (req, res) => {
     res.render('home');
 });
+
+
+
 // app.post('/itinerary', itineraryController.handleItinerary);
 
 const itineraryGenerator = require('./src/models/itineraryGenerator');

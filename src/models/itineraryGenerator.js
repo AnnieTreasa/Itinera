@@ -205,7 +205,7 @@ const distanceMatrix = [
 ];
 
 
-const _ = require('lodash');
+//const _ = require('lodash');
 function shuffle(array) {
   const shuffled = [...array]; // Create a copy to avoid modifying the original array
   for (let i = shuffled.length - 1; i > 0; i--) {
@@ -336,4 +336,4 @@ const preferences = new Map([
   ["Wildlife", 0],   // Weight of 0 for Wildlife (not preferred)
 ]);
 
-const result = generateItinerary(5, 4500, preferences); // Call the function
+const result = generateItinerary(2, 4500, preferences); // Call the function

@@ -21,6 +21,7 @@ user.post('/', async (req,res)=>{
     const result = await userModel.create(req.body)
     res.json(result)
 })
+
 user.post('/guideSignUp', async (req,res)=>{
     const result = await userModel.create_guide(req.body)
     res.json(result)
@@ -38,10 +39,10 @@ user.delete('/:id', async (req,res)=>{
     res.json(result)
 })
 
-user.get('/profile', async (req,res)=>{
-    //const result = await userModel.findByemail(req.params.email)
-    //res.json(result)
-    res.render("common/profile")
-})
+
+
+
+
 
 export default user
+

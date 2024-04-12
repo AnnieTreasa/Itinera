@@ -87,6 +87,13 @@ const findByIdAndDelete = async (id) =>{
     return await findAll()
 }
 
+
+
+
+
+
+
+
 export default {
     findAll,
     findById,
@@ -96,5 +103,6 @@ export default {
     findByemail,
     create_guide,
     create_taxi_driver
+   
 }
    

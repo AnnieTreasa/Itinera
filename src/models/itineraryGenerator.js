@@ -20,7 +20,7 @@ const category_details = [
 const locations = [
 
     {
-      name: "Munnar",
+      name: "MUNNAR",
       category: "Hill station",
       duration: 2,
       cost: 100,
@@ -38,10 +38,47 @@ const locations = [
           name: "Boating in lake(Kundala Lake)",
           time: "Afternoon (Enjoy scenic views)"
         }
+      ],guides: [
+        {
+          name: "Munnar Eco Guides",
+          contact: "+91 94970 00000",
+          specialties: ["Nature walks", "Wildlife spotting", "Trekking"],
+        },
+        {
+          name: "Munnar Tourism Development Council",
+          contact: "+91 4865 230002",
+          specialties: ["Historical and cultural tours", "Local sightseeing"],
+        },
+      ],
+      taxis: [
+        {
+          company: "Munnar Cabs",
+          contact: "+91 94470 33444",
+          website: "https://www.munnarcabs.com/",
+        },
+        {
+          company: "Keralataxi.com",
+          contact: "+91 8888 888 888",
+          website: "https://www.keralataxi.com/",
+        },
+      ],
+      restaurants: [
+        {
+          name: "Sheela Restaurant",
+          cuisine: "Keralan, South Indian",
+          rating: 4.7,
+          website: "https://www.zomato.com/munnar/sheela-restaurant-munnar-1",
+        },
+        {
+          name: "East Winds Munnar",
+          cuisine: "International, Indian",
+          rating: 4.3,
+          website: "https://www.zomato.com/munnar/east-winds-munnar-1",
+        },
       ]
     },
     {
-      name: "Alleppey",
+      name: "ALAPUZHA",
       category: "Backwaters",
       duration: 1,
       cost: 80,
@@ -55,10 +92,48 @@ const locations = [
           name:"Local village visit",
           time:"Throughout the day"
         }
+      ],
+      guides: [
+        {
+          name: "Alleppey Backwaters Tourism Development Cooperative Society (ABDT)",
+          contact: "+91 477 223 6880",
+          specialties: ["Backwater tours", "Cultural experiences", "Local history"],
+        },
+        {
+          name: "Green Kaptain Backwaters",
+          contact: "+91 94470 63434",
+          specialties: ["Luxury houseboat experiences", "Birdwatching tours", "Ayurvedic treatments (onboard)"],
+        },
+      ],
+      taxis: [
+        {
+          company: "Alleppey Cabs",
+          contact: "+91 98460 88888",
+          website: "https://www.alleppeycabs.com/",
+        },
+        {
+          company: "Keralataxi.com",
+          contact: "+91 8888 888 888",
+          website: "https://www.keralataxi.com/",
+        },
+      ],
+      restaurants: [
+        {
+          name: "Karimeen Restaurant",
+          cuisine: "Keralan, Seafood",
+          rating: 4.8,
+          website: "https://www.zomato.com/alleppey/karimeen-restaurant-aleppey-1",
+        },
+        {
+          name: "Neerettukayal Restaurant",
+          cuisine: "Keralan, Seafood",
+          rating: 4.5,
+          website: "https://www.zomato.com/alleppey/neerettukayal-restaurant-aleppey-1",
+        },
       ]
     },
     {
-      name: "Kovalam",
+      name: "KOVALAM",
       category: "Beach",
       duration: 2,
       cost: 120,
@@ -80,10 +155,48 @@ const locations = [
           name:"Ayurvedic massage",
           time:"Throughout the day"
         }
+      ],
+      guides: [
+        {
+          name: "Kovalam Tourism Development Society (KTDS)",
+          contact: "+91 471 230 2131",
+          specialties: ["Beach activities", "Local history and culture", "Sightseeing tours"],
+        },
+        {
+          name: "Ayurvedic Yoga Wellness",
+          contact: "+91 98460 99888",
+          specialties: ["Ayurvedic treatments", "Yoga classes", "Meditation retreats"],
+        },
+      ],
+      taxis: [
+        {
+          company: "Kovalam Cabs",
+          contact: "+91 8888 555 555",
+          website: "https://www.kovalamcabs.com/", // Placeholder, replace with actual website if available
+        },
+        {
+          name: "Keralataxi.com",
+          contact: "+91 8888 888 888",
+          website: "https://www.keralataxi.com/",
+        },
+      ],
+      restaurants: [
+        {
+          name: "Fusion Restaurant Kovalam",
+          cuisine: "International, Seafood",
+          rating: 4.6,
+          website: "https://www.zomato.com/trivandrum/fusion-restaurant-kovalam-1",
+        },
+        {
+          name: "Lighthouse Restaurant Kovalam",
+          cuisine: "Keralan, Seafood",
+          rating: 4.3,
+          website: "https://www.zomato.com/trivandrum/lighthouse-restaurant-kovalam-1",
+        },
       ]
     },
     {
-      name: "Thekkady",
+      name: "THEKKADY",
       category: "Wildlife",
       duration: 1,
       cost: 70,
@@ -101,10 +214,48 @@ const locations = [
           name: "Boat ride in Periyar lake",
           time: "Late afternoon (Increased chance of wildlife sightings)"
         }
+      ],
+      guides: [
+        {
+          name: "Periyar Tiger Trail",
+          contact: "+91 94959 95959",
+          specialties: ["Wildlife safaris", "Birdwatching tours", "Nature walks"],
+        },
+        {
+          name: "Thekkady Jungle Guides Association",
+          contact: "+91 468 222 5555",
+          specialties: ["Responsible tourism practices", "Local wildlife knowledge", "Night safaris (optional)"],
+        },
+      ],
+      taxis: [
+        {
+          company: "Thekkady Taxi Services",
+          contact: "+91 90000 11222",
+          website: "https://www.thekkadytaxiservices.com/",
+        },
+        {
+          name: "Keralataxi.com",
+          contact: "+91 8888 888 888",
+          website: "https://www.keralataxi.com/",
+        }
+      ],
+      restaurants: [
+        {
+          name: "Greenlands Restaurant",
+          cuisine: "Keralan, Indian",
+          rating: 4.2,
+          website: "https://www.zomato.com/thekkady/greenlands-restaurant-thekkady-1",
+        },
+        {
+          name: "Spice Junction Restaurant",
+          cuisine: "Keralan, South Indian",
+          rating: 4.4,
+          website: "https://www.zomato.com/thekkady/spice-junction-restaurant-thekkady-1",
+        },
       ]
     },
     {
-      name: "Wayanad",
+      name: "WAYANAD",
       category: "Hill station",
       duration: 2,
       cost: 150,
@@ -126,10 +277,48 @@ const locations = [
           name:"Ziplining (optional)",
           time:"Throughout the day"
         }
+      ],
+      guides: [
+        {
+          name: "Wayanad Adventure Club",
+          contact: "+91 94479 00000",
+          specialties: ["Trekking expeditions", "Wildlife spotting", "Camping tours"],
+        },
+        {
+          name: "Wayanad Eco Guides",
+          contact: "+91 88888 22333",
+          specialties: ["Birdwatching tours", "Nature walks", "Local flora and fauna knowledge"],
+        },
+      ],
+      taxis: [
+        {
+          company: "Wayanad Cabs",
+          contact: "+91 98989 88777",
+          website: "https://www.wayanadcabs.com/", // Placeholder, replace with actual website if available
+        },
+        {
+          name: "Keralataxi.com",
+          contact: "+91 8888 888 888",
+          website: "https://www.keralataxi.com/",
+        },
+      ],
+      restaurants: [
+        {
+          name: "The Peppercorn Restaurant",
+          cuisine: "Keralan, North Indian",
+          rating: 4.5,
+          website: "https://www.zomato.com/wayanad/the-peppercorn-restaurant-wayanad-1",
+        },
+        {
+          name: "Cafe Mist",
+          cuisine: "Multi-cuisine, Cafe",
+          rating: 4.2,
+          website: "https://www.zomato.com/wayanad/cafe-mist-wayanad-1",
+        },
       ]
     },
     {
-      name: "Periyar",
+      name: "PERIYAR",
       category: "Wildlife",
       duration: 1,
       cost: 100,
@@ -151,10 +340,48 @@ const locations = [
           name:" mengunjungi desa adat (visiting tribal villages)", // local activity (assuming you're in Kerala),
           time:"Throughout the day"
         }
+      ],
+      guides: [
+        {
+          name: "Periyar Tiger Trail",
+          contact: "+91 94959 95959",
+          specialties: ["Wildlife safaris", "Birdwatching tours", "Nature walks"],
+        },
+        {
+          name: "Thekkady Jungle Guides Association",
+          contact: "+91 468 222 5555",
+          specialties: ["Responsible tourism practices", "Local wildlife knowledge", "Night safaris (optional)"],
+        },
+      ],
+      taxis: [
+        {
+          company: "Thekkady Taxi Services",
+          contact: "+91 90000 11222",
+          website: "https://www.thekkadytaxiservices.com/",
+        },
+        {
+          company: "Keralataxi.com",
+          contact: "+91 8888 888 888",
+          website: "https://www.keralataxi.com/",
+        },
+      ],
+      restaurants: [
+        {
+          name: "Greenlands Restaurant",
+          cuisine: "Keralan, Indian",
+          rating: 4.2,
+          website: "https://www.zomato.com/thekkady/greenlands-restaurant-thekkady-1",
+        },
+        {
+          name: "Spice Junction Restaurant",
+          cuisine: "Keralan, South Indian",
+          rating: 4.4,
+          website: "https://www.zomato.com/thekkady/spice-junction-restaurant-thekkady-1",
+        },
       ]
     },
     {
-      name: "Varkala",
+      name: "VARKALA",
       category: "Beach",
       duration: 1,
       cost: 80,
@@ -187,6 +414,44 @@ const locations = [
           name: "Relaxing by the beach",
           time: "Throughout the day" // Flexible activity
         }
+      ],
+      guides: [
+        {
+          name: "Varkala Tourism Development Cooperative Society (VTDC)",
+          contact: "+91 471 246 3301",
+          specialties: ["Sightseeing tours", "Cultural experiences", "Local history tours"],
+        },
+        {
+          name: "Ayurvedic Bliss",
+          contact: "+91 98465 78900",
+          specialties: ["Ayurvedic treatments", "Yoga classes", "Meditation retreats"],
+        },
+      ],
+      taxis: [
+        {
+          company: "Varkala Taxi Services",
+          contact: "+91 88889 99000",
+          website: "https://www.varkalataxiservices.com/", // Placeholder, replace with actual website if available
+        },
+        {
+          name: "Keralataxi.com",
+          contact: "+91 8888 888 888",
+          website: "https://www.keralataxi.com/",
+        },
+      ],
+      restaurants: [
+        {
+          name: "Clafouti Beach Restaurant",
+          cuisine: "Seafood, European",
+          rating: 4.7,
+          website: "https://www.zomato.com/varkala/clafouti-beach-restaurant-varkala-1",
+        },
+        {
+          name: "Indique Restaurant",
+          cuisine: "Keralan, North Indian",
+          rating: 4.5,
+          website: "https://www.zomato.com/varkala/indique-restaurant-varkala-1",
+        },
       ]
     }
     
@@ -331,21 +596,55 @@ for (const pref of preferences) {
 // }
 
 console.log("Best New Itinerary:");
-let totalDayss = 0;
+let totalDays = 0;
+
+// const itinerary = [];
+// for (const location of bestItinerary) {
+//     if (totalDayss + location.duration <= duration) {
+//         itinerary.push(location);
+//         console.log(`Name: ${location.name}, Category: ${location.category}, Duration: ${location.duration} days, Cost: ${location.cost}, Rating: ${location.rating}`);
+//         console.log("Activities:");
+//         for (const activity of location.activities) {
+//             console.log(`- ${activity.name} [ ${activity.time}]`);
+//         }
+//         totalDayss += location.duration;
+//     } else {
+//         break;
+//     }
+// }
 
 const itinerary = [];
 for (const location of bestItinerary) {
-    if (totalDayss + location.duration <= duration) {
-        itinerary.push(location);
-        console.log(`Name: ${location.name}, Category: ${location.category}, Duration: ${location.duration} days, Cost: ${location.cost}, Rating: ${location.rating}`);
-        console.log("Activities:");
-        for (const activity of location.activities) {
-            console.log(`- ${activity.name} [ ${activity.time}]`);
-        }
-        totalDayss += location.duration;
-    } else {
-        break;
+  if (totalDays + location.duration <= duration) {
+    itinerary.push(location);
+    console.log(`Name: ${location.name}, Category: ${location.category}`);
+    console.log(`Duration: ${location.duration} days, Cost: ${location.cost}, Rating: ${location.rating}`);
+
+    console.log("Activities:");
+    for (const activity of location.activities) {
+      console.log(`- ${activity.name} [ ${activity.time}]`);
     }
+
+    console.log("Guides:");
+    for (const guide of location.guides) {
+      console.log(`- ${guide.name} (Contact: ${guide.contact}, Specialties: ${guide.specialties})`);
+    }
+
+    console.log("Taxis:");
+    for (const taxi of location.taxis) {
+      console.log(`- ${taxi.company} (Contact: ${taxi.contact}, Website: ${taxi.website || "NA"})`); // Use "NA" if website is unavailable
+    }
+
+    console.log("Restaurants:");
+    for (const restaurant of location.restaurants) {
+      console.log(`- ${restaurant.name} (Cuisine: ${restaurant.cuisine}, Rating: ${restaurant.rating}, Website: ${restaurant.website || "NA"})`); // Use "NA" if website is unavailable
+    }
+
+    totalDays += location.duration;
+    console.log("------------------------"); // Separator between locations
+  } else {
+    break;
+  }
 }
 
 return itinerary; // Return the generated itinerary
@@ -363,4 +662,4 @@ const preferences = new Map([
   ["Wildlife", 0],   // Weight of 0 for Wildlife (not preferred)
 ]);
 
-//const result = generateItinerary(4, 4500, preferences); // Call the function
+// const result = generateItinerary(4, 4500, preferences); // Call the function

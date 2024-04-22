@@ -111,29 +111,120 @@ for (const location of itinerary) {
   locationItem.classList.add("location"); // Add a CSS class for styling
 
   // Display location name, category, duration, cost, and rating
-  const locationDetails = document.createElement("p");
-  locationDetails.innerHTML = `</br><b>Name:</b> ${location.name} | <b>Category:</b> ${location.category} | <b>Duration:</b> ${location.duration} days | <b>Cost:</b> Rs. ${location.cost} | <b>Rating:</b> ${location.rating}<br> `;
-  locationItem.appendChild(locationDetails);
+  // const locationDetails = document.createElement("p");
+  // locationDetails.innerHTML = `</br></br><b>Name:</b> ${location.name} | <b>Category:</b> ${location.category} | <b>Duration:</b> ${location.duration} days | <b>Cost:</b> Rs. ${location.cost} | <b>Rating:</b> ${location.rating}<br> `;
+  // locationItem.appendChild(locationDetails);
 
-  // Create a subheading for activities
+  const locationDetails = document.createElement("p");
+locationDetails.innerHTML = `</br></br><b>Name:</b> <span style="font-size: 25px; ">${location.name}</span> </br> <b>Category:</b> ${location.category} | <b>Duration:</b> ${location.duration} days | <b>Cost:</b> Rs. ${location.cost} | <b>Rating:</b> ${location.rating}<br> `;
+locationItem.appendChild(locationDetails);
+
+
+  // Create subheadings for activities, guides, taxis, and restaurants
   const activitiesHeading = document.createElement("h3");
   activitiesHeading.textContent = "Activities:";
+  activitiesHeading.style.color = "brown";
   locationItem.appendChild(activitiesHeading);
 
-  // Create an unordered list for activities
+
+
+  // Create unordered lists for activities, guides, taxis, and restaurants
   const activityList = document.createElement("ul");
-  console.log(location)
+  const guideList = document.createElement("ul");
+  const taxiList = document.createElement("ul");
+  const restaurantList = document.createElement("ul");
+
+  // Loop through activities and add them to the activity list
   for (const activity of location.activities) {
     const activityItem = document.createElement("li");
-    console.log("print 1")
     activityItem.innerHTML = `<b> Activity:</b>${activity.name}|<b> Time:</b>${activity.time}`;
     activityList.appendChild(activityItem);
   }
   locationItem.appendChild(activityList);
 
+  // const guidesHeading = document.createElement("h3");
+  // guidesHeading.textContent = "Guides:";
+  // locationItem.appendChild(guidesHeading);
+  const guidesHeading = document.createElement("h3");
+guidesHeading.textContent = "Guides:";
+guidesHeading.style.color = "brown"; // Change the color to blue
+locationItem.appendChild(guidesHeading);
+
+
+  // Loop through guides and add them to the guide list (similar to activities)
+  for (const guide of location.guides) {
+    const guideItem = document.createElement("li");
+    guideItem.innerHTML = `<b>${guide.name}</b> (Contact: ${guide.contact}, Specialties: ${guide.specialties})`;
+    guideList.appendChild(guideItem);
+  }
+  locationItem.appendChild(guideList);
+
+  
+  const taxisHeading = document.createElement("h3");
+  taxisHeading.textContent = "Taxis:";
+  taxisHeading.style.color = "brown";
+  locationItem.appendChild(taxisHeading);
+
+  // Loop through taxis and add them to the taxi list (similar to activities)
+  for (const taxi of location.taxis) {
+    const taxiItem = document.createElement("li");
+    const website = taxi.website ? `<a href="${taxi.website}" target="_blank">Website</a>` : "NA"; // Create a link for website if available
+    taxiItem.innerHTML = `<b>${taxi.company}</b> (Contact: ${taxi.contact}, ${website})`;
+    taxiList.appendChild(taxiItem);
+  }
+  locationItem.appendChild(taxiList);
+
+
+  
+
+  const restaurantsHeading = document.createElement("h3");
+  restaurantsHeading.textContent = "Restaurants:";
+  restaurantsHeading.style.color = "brown";
+  locationItem.appendChild(restaurantsHeading);
+
+  // Loop through restaurants and add them to the restaurant list (similar to activities)
+  for (const restaurant of location.restaurants) {
+    const restaurantItem = document.createElement("li");
+    const website = restaurant.website ? `<a href="${restaurant.website}" target="_blank">Website</a>` : "NA"; // Create a link for website if available
+    restaurantItem.innerHTML = `<b>${restaurant.name}</b> (Cuisine: ${restaurant.cuisine}, Rating: ${restaurant.rating}, ${website})`;
+    restaurantList.appendChild(restaurantItem);
+  }
+  locationItem.appendChild(restaurantList);
+
   // Append the location details to the itinerary list
   itineraryList.appendChild(locationItem);
-}   
+}
+
+
+// for (const location of itinerary) {
+//   // Create a container element for each location
+//   const locationItem = document.createElement("div");
+//   locationItem.classList.add("location"); // Add a CSS class for styling
+
+//   // Display location name, category, duration, cost, and rating
+//   const locationDetails = document.createElement("p");
+//   locationDetails.innerHTML = `</br><b>Name:</b> ${location.name} | <b>Category:</b> ${location.category} | <b>Duration:</b> ${location.duration} days | <b>Cost:</b> Rs. ${location.cost} | <b>Rating:</b> ${location.rating}<br> `;
+//   locationItem.appendChild(locationDetails);
+
+//   // Create a subheading for activities
+//   const activitiesHeading = document.createElement("h3");
+//   activitiesHeading.textContent = "Activities:";
+//   locationItem.appendChild(activitiesHeading);
+
+//   // Create an unordered list for activities
+//   const activityList = document.createElement("ul");
+//   console.log(location)
+//   for (const activity of location.activities) {
+//     const activityItem = document.createElement("li");
+//     console.log("print 1")
+//     activityItem.innerHTML = `<b> Activity:</b>${activity.name}|<b> Time:</b>${activity.time}`;
+//     activityList.appendChild(activityItem);
+//   }
+//   locationItem.appendChild(activityList);
+
+//   // Append the location details to the itinerary list
+//   itineraryList.appendChild(locationItem);
+// }   
    
   });
 

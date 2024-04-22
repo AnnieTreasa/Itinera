@@ -1,4 +1,94 @@
-const category =[
+<%- include('../partials/header'); -%>
+<div
+  class="App"
+  style="
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-image: url(/Frame.png);
+  "
+>
+  <h1 style="text-align: center">Kerala Trip Planner</h1>
+
+  <form id="itineraryForm">
+    <label for="duration">Duration (days):</label>
+    <input type="number" id="duration" name="duration" min="1" required /><br />
+    <label for="budget">Budget (INR):</label>
+    <input type="number" id="budget" name="budget" min="1" required /><br />
+
+    <h3>Preferred Categories:</h3>
+
+    <label for="hillStation">Hill station:</label>
+    <select name="category" id="hillStationWeight">
+      <option value="0">Not Preferred</option>
+      <option value="1">Low Preference</option>
+      <option value="2">Medium Preference</option>
+      <option value="3">High Preference</option></select
+    ><br />
+
+    <label for="backwaters">Backwaters:</label>
+    <select name="category" id="backwatersWeight">
+      <option value="0">Not Preferred</option>
+      <option value="1">Low Preference</option>
+      <option value="2">Medium Preference</option>
+      <option value="3">High Preference</option></select
+    ><br />
+
+    <label for="Beaches">Beaches:</label>
+    <select name="category" id="BeachesWeight">
+      <option value="0">Not Preferred</option>
+      <option value="1">Low Preference</option>
+      <option value="2">Medium Preference</option>
+      <option value="3">High Preference</option></select
+    ><br />
+
+    <label for="wildlife">Wildlife:</label>
+    <select name="category" id="wildlifeWeight">
+      <option value="0">Not Preferred</option>
+      <option value="1">Low Preference</option>
+      <option value="2">Medium Preference</option>
+      <option value="3">High Preference</option></select
+    ><br />
+
+    <button type="submit">Generate Itinerary</button>
+  </form>
+
+  <div id="itinerary"></div>
+</div>
+
+<%- include('../partials/footer'); -%>
+
+<script>
+  // import generateItinerary from "../../src/models/itineraryGenerator";
+
+  const form = document.getElementById("itineraryForm");
+  const itineraryContainer = document.getElementById("itinerary");
+
+  form.addEventListener("submit", function (event) {
+    console.log("asdasd");
+    event.preventDefault();
+
+    // Get user input values
+    const duration = parseInt(document.getElementById("duration").value);
+    const budget = parseInt(document.getElementById("budget").value);
+
+    // Create a Map to store user preferences (weight for each category)
+    let preferences = [
+      ["Hill station", 0],
+      ["Backwaters", 0],
+      ["Beach", 0],
+      ["Wildlife", 0],
+    ];
+    const categories = document.querySelectorAll('select[name="category"]');
+    categories.forEach((category, index)=>{
+      preferences[index][1] = parseInt(category.value);
+    })
+    console.log(preferences)
+
+    const category =[
   "Backwater"
 , "Forts and Palaces","Hills", "Waterfalls", "Beaches", "Places of interest", "Picnic spots", "Wildlife" ,"Monuments", "Museums", "Pilgrim Centers" 
 ]
@@ -217,7 +307,7 @@ function shuffle(array) {
 function generateItinerary(duration, budget, preferences) {
   // Hyperparameters
   const populationSize = 10;
-  const mutationRate = 0.2;
+  const mutationRate = 0.1;
 
 
   function fitness(chromosome) {
@@ -233,14 +323,7 @@ function generateItinerary(duration, budget, preferences) {
         visitedLocations.add(location.name);
         totalDuration += location.duration;
         totalCost += location.cost;
-        let preferenceScore = 0;
-for (const pref of preferences) {
-  if (pref[0] === location.category) {
-    preferenceScore += pref[1];
-    break; // Exit the loop once the matching category is found
-  }
-}
-        //preferenceScore += preferences.get(location.category, 0);
+        preferenceScore += preferences.get(location.category, 0);
         // Calculate distance penalty (replace 2 with a suitable weight)
     if (chromosome.indexOf(location) > 0) { // Avoid penalty for the first location
       const previousLocation = chromosome[chromosome.indexOf(location) - 1];
@@ -259,7 +342,7 @@ for (const pref of preferences) {
     // Penalties
     score -= Math.abs(totalDuration - duration) * 3; // Higher penalty for exceeding duration
     score -= Math.abs(totalCost - budget) * 1.5;
-    score += preferenceScore * 200; // Lower weight on preference to avoid forcing inclusion
+    score += preferenceScore * 2; // Lower weight on preference to avoid forcing inclusion
     score -= totalDistance * 0.1; // Penalize for higher total distance
     return score;
   }
@@ -314,53 +397,171 @@ for (const pref of preferences) {
 //     break;
 //   }
 // }
-// console.log("Best Itinerary:");
-// let totalDays = 0;
+console.log("Best Itinerary:");
+let totalDays = 0;
 
-// for (const location of bestItinerary) {
-//   if (totalDays + location.duration <= duration) {
-//     console.log(`Name: ${location.name}, Category: ${location.category}, Duration: ${location.duration} days, Cost: ${location.cost}, Rating: ${location.rating}`);
-//     console.log("Activities:");
-//     for (const activity of location.activities) {
-//       console.log(`- ${activity.name} [ ${activity.time}]`);
-//     }
-//     totalDays += location.duration;
-//   } else {
-//     break;
-//   }
-// }
-
-console.log("Best New Itinerary:");
-let totalDayss = 0;
-
-const itinerary = [];
 for (const location of bestItinerary) {
-    if (totalDayss + location.duration <= duration) {
-        itinerary.push(location);
-        console.log(`Name: ${location.name}, Category: ${location.category}, Duration: ${location.duration} days, Cost: ${location.cost}, Rating: ${location.rating}`);
-        console.log("Activities:");
-        for (const activity of location.activities) {
-            console.log(`- ${activity.name} [ ${activity.time}]`);
-        }
-        totalDayss += location.duration;
-    } else {
-        break;
+  if (totalDays + location.duration <= duration) {
+    console.log(`Name: ${location.name}, Category: ${location.category}, Duration: ${location.duration} days, Cost: ${location.cost}, Rating: ${location.rating}`);
+    console.log("Activities:");
+    for (const activity of location.activities) {
+      console.log(`- ${activity.name} [ ${activity.time}]`);
     }
+    totalDays += location.duration;
+  } else {
+    break;
+  }
 }
 
-return itinerary; // Return the generated itinerary
-
 }
 
 
-export default  generateItinerary;
 
-// Example usage (set user preferences)
-const preferences = new Map([
-  ["Hill station", 3], // Weight of 3 for Hill stations
-  ["Backwaters", 1],  // Weight of 1 for Backwaters
-  ["Beach", 2],       // Weight of 2 for Beaches
-  ["Wildlife", 0],   // Weight of 0 for Wildlife (not preferred)
-]);
 
-//const result = generateItinerary(4, 4500, preferences); // Call the function
+
+
+    // Generate the itinerary using the generateItinerary function
+    console.log({ duration, budget, preferences });
+    const itinerary = generateItinerary(duration, budget, preferences);
+
+    // Clear the itinerary container before displaying new results
+    itineraryContainer.innerHTML = "";
+
+    // Create HTML elements to display the itinerary
+    const itineraryHeading = document.createElement("h2");
+    itineraryHeading.textContent = "Your Kerala Itinerary:";
+    itineraryContainer.appendChild(itineraryHeading);
+
+    if (itinerary.length === 0) {
+      // Handle no itinerary found scenario
+      const noResults = document.createElement("p");
+      noResults.textContent =
+        "No itinerary found that meets your criteria. Please adjust your preferences and try again.";
+      itineraryContainer.appendChild(noResults);
+    } else {
+      // Loop through each location in the itinerary and create HTML elements
+      for (const location of itinerary) {
+        const locationContainer = document.createElement("div");
+        locationContainer.classList.add("location");
+
+        const locationName = document.createElement("h3");
+        locationName.textContent = location.name;
+        locationContainer.appendChild(locationName);
+
+        const locationDetails = document.createElement("p");
+        locationDetails.innerHTML = `Category: ${location.category}, Duration: ${location.duration} days, Cost: ${location.cost}, Rating: ${location.rating}`;
+        locationContainer.appendChild(locationDetails);
+
+        // Add activities section if available
+        if (location.activities.length > 0) {
+          const activitiesHeading = document.createElement("h4");
+          activitiesHeading.textContent = "Activities:";
+          locationContainer.appendChild(activitiesHeading);
+
+          const activitiesList = document.createElement("ul");
+          for (const activity of location.activities) {
+            const activityItem = document.createElement("li");
+            activityItem.textContent = `- ${activity.name} [${activity.time}]`;
+            activitiesList.appendChild(activityItem);
+          }
+          locationContainer.appendChild(activitiesList);
+        }
+
+        itineraryContainer.appendChild(locationContainer);
+      }
+    }
+  });
+</script>
+
+<!-- <%- include('../partials/header'); -%>
+  <div class="App" style="font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-image: url(/Frame.png);">
+    <h1 style="text-align: center;">Kerala Trip Planner</h1>
+    <form id="itineraryForm">
+        <label for="duration">Duration (days):</label>
+        <input type="number" id="duration" name="duration" min="1" required><br>
+        <label for="budget">Budget (INR):</label>
+        <input type="number" id="budget" name="budget" min="1" required><br>
+
+        <h3>Preferred Categories:</h3>
+
+        <label for="hillStation">Hill station:</label>
+        <select id="hillStationWeight">
+            <option value="0">Not Preferred</option>
+            <option value="1">Low Preference</option>
+            <option value="2">Medium Preference</option>
+            <option value="3">High Preference</option>
+        </select><br>
+
+        <label for="backwaters">Backwaters:</label>
+        <select id="backwatersWeight">
+            <option value="0">Not Preferred</option>
+            <option value="1">Low Preference</option>
+            <option value="2">Medium Preference</option>
+            <option value="3">High Preference</option>
+        </select><br>
+
+        <label for="Beaches">Beaches:</label>
+        <select id="BeachesWeight">
+            <option value="0">Not Preferred</option>
+            <option value="1">Low Preference</option>
+            <option value="2">Medium Preference</option>
+            <option value="3">High Preference</option>
+        </select><br>
+
+        <label for="wildlife">Wildlife:</label>
+        <select id="wildlifeWeight">
+            <option value="0">Not Preferred</option>
+            <option value="1">Low Preference</option>
+            <option value="2">Medium Preference</option>
+            <option value="3">High Preference</option>
+        </select><br>
+
+
+
+        <button type="submit">Generate Itinerary</button>
+    </form>
+
+    <div id="itinerary"></div>
+
+    
+  </div>
+
+ 
+<%- include('../partials/footer'); -%> 
+<script>
+  import generateItinerary from "../../src/models/itineraryGenerator";
+
+
+const form = document.getElementById('itineraryForm');
+const itineraryContainer = document.getElementById('itinerary');
+
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+  console.log("hello");
+  const duration = (document.getElementById('duration').value);
+  const budget = (document.getElementById('budget').value);
+
+
+  // Create a Map to store user preferences (weight for each category)
+  const preferences = new Map();
+  const categories = document.querySelectorAll('input[name="category"]');
+  for (const category of categories) {
+    const weight = parseInt(category.parentElement.querySelector('select').value);
+    preferences.set(category.value, weight);
+  }
+  console.log(duration, budget, preferences);
+
+  // Generate the itinerary and display results in HTML
+
+  // Call the generateItinerary function and display the result in the itinerary container
+  const itinerary = generateItinerary(duration, budget, preferences);
+  console.log(itinerary);
+  itineraryContainer.innerHTML = itinerary;
+});
+</script> -->

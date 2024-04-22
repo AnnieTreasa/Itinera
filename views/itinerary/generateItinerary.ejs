@@ -1,92 +1,146 @@
 <%- include('../partials/header'); -%>
-  <div class="App" style="font-family: Arial, sans-serif;
+<div
+  class="App"
+  style="
+    font-family: Arial, sans-serif;
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-image: url(/Frame.png);">
-    <h1 style="text-align: center;">Kerala Trip Planner</h1>
-    <form id="itineraryForm">
-        <label for="duration">Duration (days):</label>
-        <input type="number" id="duration" name="duration" min="1" required><br>
-        <label for="budget">Budget (INR):</label>
-        <input type="number" id="budget" name="budget" min="1" required><br>
+    background-image: url(/Frame.png);
+  "
+>
+  <h1 style="text-align: center">Itinera </h1>
 
-        <h3>Preferred Categories:</h3>
+  <form id="itineraryForm">
+    <label for="duration">Duration (days):</label>
+    <input type="number" id="duration" name="duration" min="1" required /><br />
+    <label for="budget">Budget (INR):</label>
+    <input type="number" id="budget" name="budget" min="1" required /><br />
 
-        <label for="hillStation">Hill station:</label>
-        <select id="hillStationWeight">
-            <option value="0">Not Preferred</option>
-            <option value="1">Low Preference</option>
-            <option value="2">Medium Preference</option>
-            <option value="3">High Preference</option>
-        </select><br>
+    <h3>Preferred Categories:</h3>
 
-        <label for="backwaters">Backwaters:</label>
-        <select id="backwatersWeight">
-            <option value="0">Not Preferred</option>
-            <option value="1">Low Preference</option>
-            <option value="2">Medium Preference</option>
-            <option value="3">High Preference</option>
-        </select><br>
+    <label for="hillStation">Hill station:</label>
+    <select name="category" id="hillStationWeight">
+      <option value="0">Not Preferred</option>
+      <option value="10">Low Preference</option>
+      <option value="20">Medium Preference</option>
+      <option value="30">High Preference</option></select
+    ><br />
 
-        <label for="Beaches">Beaches:</label>
-        <select id="BeachesWeight">
-            <option value="0">Not Preferred</option>
-            <option value="1">Low Preference</option>
-            <option value="2">Medium Preference</option>
-            <option value="3">High Preference</option>
-        </select><br>
+    <label for="backwaters">Backwaters:</label>
+    <select name="category" id="backwatersWeight">
+      <option value="0">Not Preferred</option>
+      <option value="10">Low Preference</option>
+      <option value="20">Medium Preference</option>
+      <option value="30">High Preference</option></select
+    ><br />
 
-        <label for="wildlife">Wildlife:</label>
-        <select id="wildlifeWeight">
-            <option value="0">Not Preferred</option>
-            <option value="1">Low Preference</option>
-            <option value="2">Medium Preference</option>
-            <option value="3">High Preference</option>
-        </select><br>
+    <label for="Beaches">Beaches:</label>
+    <select name="category" id="BeachesWeight">
+      <option value="0">Not Preferred</option>
+      <option value="10">Low Preference</option>
+      <option value="20">Medium Preference</option>
+      <option value="30">High Preference</option></select
+    ><br />
 
+    <label for="wildlife">Wildlife:</label>
+    <select name="category" id="wildlifeWeight">
+      <option value="0">Not Preferred</option>
+      <option value="10">Low Preference</option>
+      <option value="20">Medium Preference</option>
+      <option value="30">High Preference</option></select
+    ><br />
 
+    <button type="submit">Generate Itinerary</button>
+  </form>
 
-        <button type="submit">Generate Itinerary</button>
-    </form>
-
-    <div id="itinerary"></div>
-
-    
+  <div id="itinerary"></div>
+  <div id="output">
+    <h2>Your Travel Plan:</h2>
+    <ul id="itineraryList"></ul>
   </div>
+</div>
 
- 
-<%- include('../partials/footer'); -%> 
+<%- include('../partials/footer'); -%>
+
 <script>
-  import generateItinerary from "../../src/models/itineraryGenerator";
+  
+  const form = document.getElementById("itineraryForm");
+  const itineraryContainer = document.getElementById("itinerary");
 
+  form.addEventListener("submit", async  (event) => {
+    console.log("asdasd");
+    event.preventDefault();
 
-const form = document.getElementById('itineraryForm');
-const itineraryContainer = document.getElementById('itinerary');
+    // Get user input values
+    const duration = parseInt(document.getElementById("duration").value);
+    const budget = parseInt(document.getElementById("budget").value);
 
-form.addEventListener('submit', function(event) {
-  event.preventDefault();
-  console.log("hello");
-  const duration = (document.getElementById('duration').value);
-  const budget = (document.getElementById('budget').value);
+        // Create a Map to store user preferences (weight for each category)
+        let preferences = [
+      ["Hill station", 0],
+      ["Backwaters", 0],
+      ["Beach", 0],
+      ["Wildlife", 0],
+    ];
+    const categories = document.querySelectorAll('select[name="category"]');
+    categories.forEach((category, index)=>{
+      preferences[index][1] = parseInt(category.value);
+    })
+    console.log(preferences)
 
+    // Generate the itinerary using the generateItinerary function
+    console.log({ duration, budget, preferences });
+    // const itinerary = generateItinerary(duration, budget, preferences);
 
-  // Create a Map to store user preferences (weight for each category)
-  const preferences = new Map();
-  const categories = document.querySelectorAll('input[name="category"]');
-  for (const category of categories) {
-    const weight = parseInt(category.parentElement.querySelector('select').value);
-    preferences.set(category.value, weight);
+    const response = await fetch('/itinera', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ duration, budget, preferences }) // Send data as JSON
+    });
+    const itinerary = await response.json(); // Parse the JSON response
+   // displayItinerary(itinerary);
+   const itineraryList = document.getElementById("itineraryList");
+itineraryList.innerHTML = ""; // Clear existing content
+
+for (const location of itinerary) {
+  // Create a container element for each location
+  const locationItem = document.createElement("div");
+  locationItem.classList.add("location"); // Add a CSS class for styling
+
+  // Display location name, category, duration, cost, and rating
+  const locationDetails = document.createElement("p");
+  locationDetails.innerHTML = `</br><b>Name:</b> ${location.name} | <b>Category:</b> ${location.category} | <b>Duration:</b> ${location.duration} days | <b>Cost:</b> Rs. ${location.cost} | <b>Rating:</b> ${location.rating}<br> `;
+  locationItem.appendChild(locationDetails);
+
+  // Create a subheading for activities
+  const activitiesHeading = document.createElement("h3");
+  activitiesHeading.textContent = "Activities:";
+  locationItem.appendChild(activitiesHeading);
+
+  // Create an unordered list for activities
+  const activityList = document.createElement("ul");
+  console.log(location)
+  for (const activity of location.activities) {
+    const activityItem = document.createElement("li");
+    console.log("print 1")
+    activityItem.innerHTML = `<b> Activity:</b>${activity.name}|<b> Time:</b>${activity.time}`;
+    activityList.appendChild(activityItem);
   }
-  console.log(duration, budget, preferences);
+  locationItem.appendChild(activityList);
 
-  // Generate the itinerary and display results in HTML
+  // Append the location details to the itinerary list
+  itineraryList.appendChild(locationItem);
+}   
+   
+  });
 
-  // Call the generateItinerary function and display the result in the itinerary container
-  const itinerary = generateItinerary(duration, budget, preferences);
-  console.log(itinerary);
-  itineraryContainer.innerHTML = itinerary;
-});
-</script>
+
+    </script>
+
+
+
+
+

@@ -11,8 +11,9 @@ common.get('/explore',async(req,res)=>{
 })
 
 common.get('/profile', async (req,res)=>{
-   
-  res.render("common/profile")
+  const user = req.session.user;
+  const { name, email } = user; // Extract specific properties
+  res.render("common/profile",{name,email})
 })
 
 common.get('/result', async (req,res)=>{

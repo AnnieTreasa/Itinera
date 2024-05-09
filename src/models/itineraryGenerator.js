@@ -567,51 +567,9 @@ for (const pref of preferences) {
   // Pick the best itinerary from final population
   const bestItinerary = population.sort((a, b) => fitness(b) - fitness(a))[0];
 
-//   // Display the itinerary
-//   console.log("Best Itinerary:");
-//   let totalDays = 0; // Initialize totalDays outside the loop
-
-// for (const location of bestItinerary) {
-//   if (totalDays + location.duration <= duration) {
-//     console.log(`Name: ${location.name}, Category: ${location.category}, Duration: ${location.duration} days, Cost: ${location.cost}, Rating: ${location.rating}`);
-//     totalDays += location.duration;
-//   } else {
-//     break;
-//   }
-// }
-// console.log("Best Itinerary:");
-// let totalDays = 0;
-
-// for (const location of bestItinerary) {
-//   if (totalDays + location.duration <= duration) {
-//     console.log(`Name: ${location.name}, Category: ${location.category}, Duration: ${location.duration} days, Cost: ${location.cost}, Rating: ${location.rating}`);
-//     console.log("Activities:");
-//     for (const activity of location.activities) {
-//       console.log(`- ${activity.name} [ ${activity.time}]`);
-//     }
-//     totalDays += location.duration;
-//   } else {
-//     break;
-//   }
-// }
-
 console.log("Best New Itinerary:");
 let totalDays = 0;
 
-// const itinerary = [];
-// for (const location of bestItinerary) {
-//     if (totalDayss + location.duration <= duration) {
-//         itinerary.push(location);
-//         console.log(`Name: ${location.name}, Category: ${location.category}, Duration: ${location.duration} days, Cost: ${location.cost}, Rating: ${location.rating}`);
-//         console.log("Activities:");
-//         for (const activity of location.activities) {
-//             console.log(`- ${activity.name} [ ${activity.time}]`);
-//         }
-//         totalDayss += location.duration;
-//     } else {
-//         break;
-//     }
-// }
 
 const itinerary = [];
 for (const location of bestItinerary) {

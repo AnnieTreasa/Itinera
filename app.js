@@ -8,6 +8,7 @@ import itin from './src/routes/itineraryroute'
 import auth from './src/routes/authRoutes'
 import rout from './src/routes/tripadvisor'
 import search from './src/routes/search';
+import userModel from './src/models/user'
 // import itn  from './src/routes/itin'
 // import { getPlacesData, getWeatherData } from './src/api/travelAdvisorAPI';
 const itineraryRoutes = require('./src/routes/itinerary');
@@ -54,6 +55,60 @@ app.get('/', (req, res) => {
 });
 
 
+app.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    //const user = await userModel.findByEmail(email); // Find user by email
+    const user = await userModel.findByemail(email)
+    console.log(user)
+    if (!user) {
+      // User not found, handle the error
+      return res.render('common/logins', { error: 'Invalid email or password' });
+    }
+
+    //const isMatch = await bcrypt.compare(password, user.password); // Compare hashed passwords
+    let isMatch = false;
+    if (password == user.password) {
+      isMatch=true;
+  } else {
+      isMatch=false; };
+
+    if (isMatch) {
+      const sessionUser = { ...user };
+      delete sessionUser.password;
+      req.session.user = sessionUser; // Store user object in session
+      
+      console.log('hello',req.session.user)
+      
+       res.redirect('/traveller_home' ); // Redirect to traveler_home page on successful login
+      //return user;
+    } else {
+      res.render('common/logins', { error: 'Invalid email or password' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.render('common/logins', { error: 'An error occurred' });
+  }
+});
+
+
+
+// Middleware to check if the user is authenticated
+const isAuthenticated = (req, res, next) => {
+  if (req.session.user) {
+    return next();
+  }
+  res.redirect('/login'); // Redirect to login page if not authenticated
+};
+
+
+
+// Profile page route
+app.get('/profile', isAuthenticated, (req, res) => {
+  const user = req.session.user; // Assuming user data is stored in the session
+  res.render('profile', { user: user }); // Render the profile template
+});
 
 // app.post('/itinerary', itineraryController.handleItinerary);
 

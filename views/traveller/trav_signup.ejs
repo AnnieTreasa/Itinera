@@ -47,7 +47,7 @@
     if (response.ok) { // Handle successful registration
       alert('Registration successful!');
       // Optionally redirect to login page or other confirmation page
-      window.location.href = '/traveller_home'; // Redirect to home
+      window.location.href = '/login'; // Redirect to home
     } else { // Handle errors
       const errorData = await response.json();
       alert(errorData.message || 'Registration failed. Please try again.');

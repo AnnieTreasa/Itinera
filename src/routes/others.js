@@ -50,9 +50,21 @@ other.get('/taxi_home',async(req,res)=>{
 })
 
 
-other.get('/traveller_home',async(req,res)=>{
-    res.render('traveller/traveller_home')
-})
+other.get('/traveller_home', async (req, res) => {
+    try {
+      const user = req.session.user; // Retrieve user from session
+      if (!user) {
+        // User not logged in, redirect to login or handle error
+        return res.redirect('/login'); // Example redirect
+      }
+      const { name, email } = user; // Extract specific properties
+      res.render('traveller/traveller_home', { name, email }); // Render template with user data
+    } catch (error) {
+      console.error(error); // Log the error for debugging
+      res.render('error', { error: 'An error occurred' }); // Render an error template
+    }
+  });
+  
 
 other.get('/admin_dashboard',async(req,res)=>{
     res.render('admin/admin_dashboard')

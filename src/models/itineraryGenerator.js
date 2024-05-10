@@ -1,20 +1,20 @@
-const category =[
-  "Backwater"
-, "Forts and Palaces","Hills", "Waterfalls", "Beaches", "Places of interest", "Picnic spots", "Wildlife" ,"Monuments", "Museums", "Pilgrim Centers" 
-]
-const category_details = [
-  { name: "Backwater", duration: 4, cost: 100 },
-  { name: "Forts and Palaces", duration: 3, cost: 80 },
-  { name: "Hills", duration: 6, cost: 120 },
-  { name: "Waterfalls", duration: 2, cost: 50 },
-  { name: "Beaches", duration: 5, cost: 90 },
-  { name: "Places of interest", duration: 3, cost: 70 },
-  { name: "Picnic spots", duration: 2, cost: 40 },
-  { name: "Wildlife", duration: 4, cost: 80 },
-  { name: "Monuments", duration: 3, cost: 70 },
-  { name: "Museums", duration: 2, cost: 60 },
-  { name: "Pilgrim Centers", duration: 3, cost: 70 }
-];
+// const category =[
+//   "Backwater"
+// , "Forts and Palaces","Hills", "Waterfalls", "Beaches", "Places of interest", "Picnic spots", "Wildlife" ,"Monuments", "Museums", "Pilgrim Centers" 
+// ]
+// const category_details = [
+//   { name: "Backwater", duration: 4, cost: 100 },
+//   { name: "Forts and Palaces", duration: 3, cost: 80 },
+//   { name: "Hills", duration: 6, cost: 120 },
+//   { name: "Waterfalls", duration: 2, cost: 50 },
+//   { name: "Beaches", duration: 5, cost: 90 },
+//   { name: "Places of interest", duration: 3, cost: 70 },
+//   { name: "Picnic spots", duration: 2, cost: 40 },
+//   { name: "Wildlife", duration: 4, cost: 80 },
+//   { name: "Monuments", duration: 3, cost: 70 },
+//   { name: "Museums", duration: 2, cost: 60 },
+//   { name: "Pilgrim Centers", duration: 3, cost: 70 }
+// ];
 
 
 const locations = [
@@ -23,7 +23,7 @@ const locations = [
       name: "MUNNAR",
       category: "Hill station",
       duration: 2,
-      cost: 100,
+      cost: 1500,
       rating: 4.5,
       activities: [
         {
@@ -81,7 +81,7 @@ const locations = [
       name: "ALAPUZHA",
       category: "Backwaters",
       duration: 1,
-      cost: 80,
+      cost: 1800,
       rating: 4.0,
       activities: [
         {
@@ -136,7 +136,7 @@ const locations = [
       name: "KOVALAM",
       category: "Beach",
       duration: 2,
-      cost: 120,
+      cost: 1120,
       rating: 4.2,
       activities: [
         {
@@ -199,7 +199,7 @@ const locations = [
       name: "THEKKADY",
       category: "Wildlife",
       duration: 1,
-      cost: 70,
+      cost: 1170,
       rating: 4.7,
       activities: [
         {
@@ -258,7 +258,7 @@ const locations = [
       name: "WAYANAD",
       category: "Hill station",
       duration: 2,
-      cost: 150,
+      cost: 1150,
       rating: 4.8,
       activities: [
         {
@@ -321,7 +321,7 @@ const locations = [
       name: "PERIYAR",
       category: "Wildlife",
       duration: 1,
-      cost: 100,
+      cost: 1100,
       rating: 4.5,
       activities: [
         {
@@ -384,7 +384,7 @@ const locations = [
       name: "VARKALA",
       category: "Beach",
       duration: 1,
-      cost: 80,
+      cost: 1180,
       rating: 4.7,
       activities: [
         {
@@ -462,8 +462,8 @@ const locations = [
 const distanceMatrix = [
   [0, 150, 280, 180, 100, 230, 310], // Kovalam
   [150, 0, 130, 100, 200, 250, 330], // Thekkady
-  [280, 130, 0, 80, 300, 180, 380], // Wayanad
-  [180, 100, 80, 0, 150, 200, 280], // Periyar
+  [280, 130, 0, 380, 300, 180, 380], // Wayanad
+  [180, 100, 380, 0, 150, 200, 280], // Periyar
   [100, 200, 300, 150, 0, 250, 330], // Varkala
   [230, 250, 180, 200, 250, 0, 180], // Munnar
   [310, 330, 380, 280, 330, 180, 0]   // Alleppey
@@ -530,11 +530,28 @@ for (const pref of preferences) {
   }
   
 
-  // Generate random population
-  let population = [];
-  for (let i = 0; i < populationSize; i++) {
-    population.push(shuffle(locations.slice())); // Shuffle a copy of locations
-  }
+  // // Generate random population
+  // let population = [];
+  // for (let i = 0; i < populationSize; i++) {
+  //   population.push(shuffle(locations.slice())); // Shuffle a copy of locations
+  // }
+ 
+// Generate random population with locations of high or medium preference
+let population = [];
+for (let i = 0; i < populationSize; i++) {
+  const filteredLocations = locations.filter(location => {
+    for (const pref of preferences) {
+      if (pref[0] === location.category && pref[1] >= 2) {
+        return true; // If preference score is 2 or higher, return true to include the location
+      }
+    }
+    return false; // Otherwise, exclude the location
+  });
+  population.push(shuffle(filteredLocations.slice())); // Shuffle a copy of filtered locations
+}
+
+
+
 
   // Main GA loop
   for (let generation = 0; generation < 10; generation++) {

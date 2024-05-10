@@ -535,22 +535,21 @@ for (const pref of preferences) {
   // for (let i = 0; i < populationSize; i++) {
   //   population.push(shuffle(locations.slice())); // Shuffle a copy of locations
   // }
-  // Generate random population with locations of high or medium preference
+ 
 // Generate random population with locations of high or medium preference
 let population = [];
 for (let i = 0; i < populationSize; i++) {
   const filteredLocations = locations.filter(location => {
-    let preferenceScore = 0;
     for (const pref of preferences) {
       if (pref[0] === location.category && pref[1] >= 2) {
-        preferenceScore += pref[1];
-        break; // Exit the loop once the matching category is found
+        return true; // If preference score is 2 or higher, return true to include the location
       }
     }
-    return preferenceScore >= 2; // Assuming preference score of 2 or higher indicates medium or high preference
+    return false; // Otherwise, exclude the location
   });
   population.push(shuffle(filteredLocations.slice())); // Shuffle a copy of filtered locations
 }
+
 
 
 

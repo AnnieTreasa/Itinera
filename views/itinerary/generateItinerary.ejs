@@ -180,6 +180,7 @@
       // Add activities
       const activitiesHeading = document.createElement("h4");
       activitiesHeading.textContent = "Activities:";
+      activitiesHeading.style.color = "brown";
       locationDetails.appendChild(activitiesHeading);
 
       const activityList = document.createElement("div");
@@ -198,6 +199,7 @@
       locationDetails.appendChild(spacee);
       const guidesHeading = document.createElement("h4");
       guidesHeading.textContent = "Guides:";
+      guidesHeading.style.color = "brown";
       locationDetails.appendChild(guidesHeading);
 
       const guideBox = document.createElement("div");
@@ -206,7 +208,7 @@
       const guideList = document.createElement("ul");
       for (const guide of location.guides) {
         const guideItem = document.createElement("li");
-        guideItem.textContent = `${guide.name} (Contact: ${guide.contact}, Specialties: ${guide.specialties})`;
+        guideItem.innerHTML = `<b>${guide.name}</b> (Contact: ${guide.contact}, Specialties: ${guide.specialties})`;
         guideList.appendChild(guideItem);
       }
       guideBox.appendChild(guideList);
@@ -220,6 +222,7 @@
       // Add taxis
       const taxisHeading = document.createElement("h4");
       taxisHeading.textContent = "Taxis:";
+      taxisHeading.style.color = "brown";
       locationDetails.appendChild(taxisHeading);
 
       const taxiBox = document.createElement("div");
@@ -228,12 +231,37 @@
       const taxiList = document.createElement("ul");
       for (const taxi of location.taxis) {
         const taxiItem = document.createElement("li");
-        const website = taxi.website ? `<a href="${taxi.website}" target="_blank">Website</a>` : "NA";
-        taxiItem.innerHTML = `${taxi.company} (Contact: ${taxi.contact}, ${website})`;
+        const website = taxi.website ? `<a href="${taxi.website}" target="_blank">Website</a>` : "NA"; // Create a link for website if available
+        taxiItem.innerHTML = `<b>${taxi.company}</b> (Contact: ${taxi.contact}, ${website})`;
         taxiList.appendChild(taxiItem);
       }
       taxiBox.appendChild(taxiList);
       locationDetails.appendChild(taxiBox);
+
+      // Add space between guides and taxis
+      const spaced = document.createElement("div");
+      spaced.style.height = "20px"; // Adjust the height as needed
+      locationDetails.appendChild(spaced);
+
+        // Add restaurants
+      const restaurantsHeading = document.createElement("h4");
+      restaurantsHeading.textContent = "Restaurants:";
+      restaurantsHeading.style.color = "brown";
+      locationDetails.appendChild(restaurantsHeading);
+
+      const restaurantBox = document.createElement("div");
+      restaurantBox.classList.add("restaurant-box");
+
+      const restaurantList = document.createElement("ul");
+      for (const restaurant of location.restaurants) {
+        const restaurantItem = document.createElement("li");
+        const website = restaurant.website ? `<a href="${restaurant.website}" target="_blank">Website</a>` : "NA";
+        restaurantItem.innerHTML = `<b>${restaurant.name}</b> (Cuisine: ${restaurant.cuisine}, Rating: ${restaurant.rating}, ${website})`;
+        restaurantList.appendChild(restaurantItem);
+      }
+      restaurantBox.appendChild(restaurantList);
+      locationDetails.appendChild(restaurantBox);
+
 
       locationItem.appendChild(locationDetails);
 

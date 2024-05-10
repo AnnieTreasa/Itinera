@@ -61,6 +61,7 @@ app.post('/login', async (req, res) => {
   try {
     //const user = await userModel.findByEmail(email); // Find user by email
     const user = await userModel.findByemail(email)
+    //console.log(user.role);
     console.log(user)
     if (!user) {
       // User not found, handle the error
@@ -80,8 +81,10 @@ app.post('/login', async (req, res) => {
       req.session.user = sessionUser; // Store user object in session
       
       console.log('hello',req.session.user)
-      
+       if (user.role == 'Traveller')
        res.redirect('/traveller_home' ); // Redirect to traveler_home page on successful login
+      else if (user.role == 'Guide')
+       res.redirect('/guide_home' );
       //return user;
     } else {
       res.render('common/logins', { error: 'Invalid email or password' });

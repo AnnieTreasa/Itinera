@@ -55,155 +55,197 @@
 
     <button type="submit">Generate Itinerary</button>
   </form>
-
-  <div id="itinerary"></div>
   <div id="output">
     <h2>Your Travel Plan:</h2>
+    <div id="timeline" class="timeline">
+      <!-- Timeline items will be added here dynamically -->
+    </div>
     <ul id="itineraryList"></ul>
   </div>
 </div>
 
 <%- include('../partials/footer'); -%>
-
 <script>
-  
+  // Create a <style> element
+  const styleElement = document.createElement("style");
+
+  // Define your CSS styles
+  const cssStyles = `
+    .timeline {
+      display: flex;
+      flex-direction: column; /* Display items vertically */
+      gap: 20px; /* Add spacing between timeline items */
+    }
+
+    .timeline-item {
+      display: flex;
+      align-items: center;
+    }
+
+    .timeline-item-content {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+
+    .timeline-item-content h3 {
+      margin-top: 0;
+    }
+
+    .timeline-item-content p {
+      margin: 0;
+    }
+
+    .timeline-item-icon {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+    .activity-box {
+      padding: 5px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: #f1f1f1;
+      margin-top: 5px;
+    }
+  `;
+
+  // Set the CSS styles within the <style> element
+  styleElement.textContent = cssStyles;
+
+  // Append the <style> element to the <head> section of the document
+  document.head.appendChild(styleElement);
+
   const form = document.getElementById("itineraryForm");
   const itineraryContainer = document.getElementById("itinerary");
 
-  form.addEventListener("submit", async  (event) => {
-    console.log("asdasd");
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     // Get user input values
     const duration = parseInt(document.getElementById("duration").value);
     const budget = parseInt(document.getElementById("budget").value);
 
-        // Create a Map to store user preferences (weight for each category)
-        let preferences = [
+    // Create a Map to store user preferences (weight for each category)
+    let preferences = [
       ["Hill station", 0],
       ["Backwaters", 0],
       ["Beach", 0],
       ["Wildlife", 0],
     ];
     const categories = document.querySelectorAll('select[name="category"]');
-    categories.forEach((category, index)=>{
+    categories.forEach((category, index) => {
       preferences[index][1] = parseInt(category.value);
-    })
-    console.log(preferences)
+    });
 
     // Generate the itinerary using the generateItinerary function
-    console.log({ duration, budget, preferences });
-    // const itinerary = generateItinerary(duration, budget, preferences);
 
-    const response = await fetch('/itinera', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ duration, budget, preferences }) // Send data as JSON
+    const response = await fetch("/itinera", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ duration, budget, preferences }), // Send data as JSON
     });
     const itinerary = await response.json(); // Parse the JSON response
-   // displayItinerary(itinerary);
-   const itineraryList = document.getElementById("itineraryList");
-itineraryList.innerHTML = ""; // Clear existing content
 
-for (const location of itinerary) {
-  // Create a container element for each location
-  const locationItem = document.createElement("div");
-  locationItem.classList.add("location"); // Add a CSS class for styling
+    const itineraryList = document.getElementById("itineraryList");
+    itineraryList.innerHTML = ""; // Clear existing content
 
-  // Display location name, category, duration, cost, and rating
-  // const locationDetails = document.createElement("p");
-  // locationDetails.innerHTML = `</br></br><b>Name:</b> ${location.name} | <b>Category:</b> ${location.category} | <b>Duration:</b> ${location.duration} days | <b>Cost:</b> Rs. ${location.cost} | <b>Rating:</b> ${location.rating}<br> `;
-  // locationItem.appendChild(locationDetails);
+    for (const location of itinerary) {
+      // Create a container element for each location
+      const locationItem = document.createElement("div");
+      locationItem.classList.add("timeline-item"); // Add a CSS class for styling
 
-  const locationDetails = document.createElement("p");
-locationDetails.innerHTML = `</br></br><b>Name:</b> <span style="font-size: 25px; ">${location.name}</span> </br> <b>Category:</b> ${location.category} | <b>Duration:</b> ${location.duration} days | <b>Cost:</b> Rs. ${location.cost} | <b>Rating:</b> ${location.rating}<br> `;
-locationItem.appendChild(locationDetails);
+      // Create an icon for the timeline item (you can customize this based on your design)
+      const icon = document.createElement("div");
+      icon.classList.add("timeline-item-icon");
+      // You can set different icons or images based on location category
+      icon.innerHTML = "<img src='logo.png' alt='Location Icon'>";
+      locationItem.appendChild(icon);
 
+      // Create content for the timeline item
+      const locationDetails = document.createElement("div");
+      locationDetails.classList.add("timeline-item-content");
+      locationDetails.innerHTML = `
+        <h3>${location.name}</h3>
+        <p><b>Category:</b> ${location.category}</p>
+        <p><b>Duration:</b> ${location.duration} days</p>
+        <p><b>Cost:</b> Rs. ${location.cost}</p>
+        <p><b>Rating:</b> ${location.rating}</p>
+        <!-- Add more details as needed -->
+      `;
+      const spaces = document.createElement("div");
+      spaces.style.height = "20px"; // Adjust the height as needed
+      locationDetails.appendChild(spaces);
+      // Add activities
+      const activitiesHeading = document.createElement("h4");
+      activitiesHeading.textContent = "Activities:";
+      locationDetails.appendChild(activitiesHeading);
 
-  // Create subheadings for activities, guides, taxis, and restaurants
-  const activitiesHeading = document.createElement("h3");
-  activitiesHeading.textContent = "Activities:";
-  activitiesHeading.style.color = "brown";
-  locationItem.appendChild(activitiesHeading);
+      const activityList = document.createElement("div");
+      for (const activity of location.activities) {
+        const activityBox = document.createElement("div");
+        activityBox.classList.add("activity-box");
+        activityBox.textContent = `${activity.name} - Time: ${activity.time}`;
+        activityList.appendChild(activityBox);
+      }
+      locationDetails.appendChild(activityList);
 
+      // Add guides
+      // Add space between guides and taxis
+      const spacee = document.createElement("div");
+      spacee.style.height = "20px"; // Adjust the height as needed
+      locationDetails.appendChild(spacee);
+      const guidesHeading = document.createElement("h4");
+      guidesHeading.textContent = "Guides:";
+      locationDetails.appendChild(guidesHeading);
 
+      const guideBox = document.createElement("div");
+      guideBox.classList.add("guide-box");
 
-  // Create unordered lists for activities, guides, taxis, and restaurants
-  const activityList = document.createElement("ul");
-  const guideList = document.createElement("ul");
-  const taxiList = document.createElement("ul");
-  const restaurantList = document.createElement("ul");
+      const guideList = document.createElement("ul");
+      for (const guide of location.guides) {
+        const guideItem = document.createElement("li");
+        guideItem.textContent = `${guide.name} (Contact: ${guide.contact}, Specialties: ${guide.specialties})`;
+        guideList.appendChild(guideItem);
+      }
+      guideBox.appendChild(guideList);
+      locationDetails.appendChild(guideBox);
 
-  // Loop through activities and add them to the activity list
-  for (const activity of location.activities) {
-    const activityItem = document.createElement("li");
-    activityItem.innerHTML = `<b> Activity:</b>${activity.name}|<b> Time:</b>${activity.time}`;
-    activityList.appendChild(activityItem);
-  }
-  locationItem.appendChild(activityList);
+      // Add space between guides and taxis
+      const space = document.createElement("div");
+      space.style.height = "20px"; // Adjust the height as needed
+      locationDetails.appendChild(space);
 
-  // const guidesHeading = document.createElement("h3");
-  // guidesHeading.textContent = "Guides:";
-  // locationItem.appendChild(guidesHeading);
-  const guidesHeading = document.createElement("h3");
-guidesHeading.textContent = "Guides:";
-guidesHeading.style.color = "brown"; // Change the color to blue
-locationItem.appendChild(guidesHeading);
+      // Add taxis
+      const taxisHeading = document.createElement("h4");
+      taxisHeading.textContent = "Taxis:";
+      locationDetails.appendChild(taxisHeading);
 
+      const taxiBox = document.createElement("div");
+      taxiBox.classList.add("taxi-box");
 
-  // Loop through guides and add them to the guide list (similar to activities)
-  for (const guide of location.guides) {
-    const guideItem = document.createElement("li");
-    guideItem.innerHTML = `<b>${guide.name}</b> (Contact: ${guide.contact}, Specialties: ${guide.specialties})`;
-    guideList.appendChild(guideItem);
-  }
-  locationItem.appendChild(guideList);
+      const taxiList = document.createElement("ul");
+      for (const taxi of location.taxis) {
+        const taxiItem = document.createElement("li");
+        const website = taxi.website ? `<a href="${taxi.website}" target="_blank">Website</a>` : "NA";
+        taxiItem.innerHTML = `${taxi.company} (Contact: ${taxi.contact}, ${website})`;
+        taxiList.appendChild(taxiItem);
+      }
+      taxiBox.appendChild(taxiList);
+      locationDetails.appendChild(taxiBox);
 
-  
-  const taxisHeading = document.createElement("h3");
-  taxisHeading.textContent = "Taxis:";
-  taxisHeading.style.color = "brown";
-  locationItem.appendChild(taxisHeading);
+      locationItem.appendChild(locationDetails);
 
-  // Loop through taxis and add them to the taxi list (similar to activities)
-  for (const taxi of location.taxis) {
-    const taxiItem = document.createElement("li");
-    const website = taxi.website ? `<a href="${taxi.website}" target="_blank">Website</a>` : "NA"; // Create a link for website if available
-    taxiItem.innerHTML = `<b>${taxi.company}</b> (Contact: ${taxi.contact}, ${website})`;
-    taxiList.appendChild(taxiItem);
-  }
-  locationItem.appendChild(taxiList);
+      // Append the location details to the timeline
+      itineraryList.appendChild(locationItem);
 
-
-  
-
-  const restaurantsHeading = document.createElement("h3");
-  restaurantsHeading.textContent = "Restaurants:";
-  restaurantsHeading.style.color = "brown";
-  locationItem.appendChild(restaurantsHeading);
-
-  // Loop through restaurants and add them to the restaurant list (similar to activities)
-  for (const restaurant of location.restaurants) {
-    const restaurantItem = document.createElement("li");
-    const website = restaurant.website ? `<a href="${restaurant.website}" target="_blank">Website</a>` : "NA"; // Create a link for website if available
-    restaurantItem.innerHTML = `<b>${restaurant.name}</b> (Cuisine: ${restaurant.cuisine}, Rating: ${restaurant.rating}, ${website})`;
-    restaurantList.appendChild(restaurantItem);
-  }
-  locationItem.appendChild(restaurantList);
-
-  // Append the location details to the itinerary list
-  itineraryList.appendChild(locationItem);
-}
-
-
-
-   
+      // Add space between each location
+      const locationSpace = document.createElement("div");
+      locationSpace.style.height = "30px"; // Adjust the height as needed
+      itineraryList.appendChild(locationSpace);
+    }
   });
-
-
-    </script>
-
-
-
-
+</script>
+      
 

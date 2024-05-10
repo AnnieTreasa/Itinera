@@ -83,9 +83,6 @@ other.get('/settings',async(req,res)=>{
     res.render('admin/settings')
 })
 
-other.get('/search',async(req,res)=>{
-    res.render('search')
-})
 
 other.get('/itinerary',async(req,res)=>{
     res.render('itinerary')

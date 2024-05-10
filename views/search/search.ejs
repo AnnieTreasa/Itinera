@@ -1,20 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include('../partials/header'); -%>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Search Places</title>
+    <meta charset="UTF-8">
+    <title>Place Search</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
-  <h1>Search Places</h1>
-  <form action="/search-places" method="post">
-    <label for="searchTerm">Search Term:</label>
-    <input type="text" id="searchTerm" name="searchTerm" required>
+    <h1>Place Search</h1>
+    <form id="searchForm">
+        <input type="text" name="search" placeholder="Enter place name or keyword">
+        <input type="text" name="location" placeholder="Optional: Location (e.g., city, zip code)">
+        <button type="submit">Search</button>
+    </form>
+    <div id="searchResults"></div>
 
-    <label for="location">Location (optional):</label>
-    <input type="text" id="location" name="location">
+    <script>
+        $(document).ready(function() {
+            $('#searchForm').submit(function(event) {
+                event.preventDefault(); // Prevent default form submission
 
-    <button type="submit">Search</button>
-  </form>
-</body>
-</html>
+                const searchTerm = $('#searchForm input[name="search"]').val();
+                const location = $('#searchForm input[name="location"]').val();
+
+                $.ajax({
+                    url: '/search', // Send request to the Express API endpoint
+                    method: 'GET',
+                    data: { search: searchTerm, location: location },
+                    success: function(data) {
+                        let resultsHtml = '';
+                        if (data.length > 0) {
+                            for (const place of data) {
+                                resultsHtml += `
+                                    <div>
+                                        <h2>${place.name}</h2>
+                                        <p>Address: ${place.formatted_address}</p>
+                           <a href="${place.url}" target="_blank">More Info</a>
+                       </div>
+                                   `;
+                               }
+                           } else {
+                               resultsHtml = '<p>No results found.</p>';
+                           }
+                           $('#searchResults').html(resultsHtml);
+                       },
+                       error: function(error) {
+                           console.error(error);
+                           $('#searchResults').html('<p>Error fetching results.</p>');
+                       }
+                   });
+               });
+           });
+       </script>
+   </body>
+   <%- include('../partials/footer'); -%>
+

@@ -137,6 +137,27 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something went wrong!');
   });
 
+// API endpoint to handle place searches
+app.get('/search', (req, res) => {
+  const searchTerm = req.query.search;
+  const location = req.query.location; // Optional: User's current location
+  map_apiKey = process.env.GOOGLE_MAPS_API_KEY
+  // Construct the Google Places API URL
+  const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=<span class="math-inline">\{searchTerm\}&location\=</span>{location}&key=${map_apiKey}`;
+
+  // Make a request to the API using request library
+  request(url, (error, response, body) => {
+      if (error) {
+          console.error(error);
+          res.status(500).send('Error retrieving places');
+      } else {
+          const data = JSON.parse(body);
+          res.json(data.results); // Send search results as JSON
+      }
+  });
+});
+
+
 
 // Start the server
 app.listen(process.env.PORT,() => console.log('Server listening on port 3005'));

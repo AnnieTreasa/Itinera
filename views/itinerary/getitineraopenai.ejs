@@ -1,11 +1,16 @@
 <%- include('../partials/header'); -%>
 
-<div class="App" style="font-family: Arial, sans-serif;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;">
+
+<div class="App" style="
+font-family: Arial, sans-serif;
+max-width: 600px;
+margin: 0 auto;
+padding: 20px;
+border: 1px solid #ccc;
+border-radius: 5px;
+background-image: url(/Frame.png);
+"
+>
     <h1 style="text-align: center;">Itinera</h1>
     <div>
         <label for="destinationCountry">Destination:</label>
@@ -26,7 +31,7 @@
     <div>
         <button id="getItineraryButton" style="width: 100%;
             padding: 10px;
-            background-color: #007bff;
+            background-color: #fdd948;
             color: #fff;
             border: none;
             border-radius: 5px;
@@ -61,7 +66,8 @@
         
         //const API_KEY="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";
         //const API_KEY="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";
-        const API_KEY = "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";
+        //const API_KEY = "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";
+        const API_KEY=process.env.OPENAI_API_KEY
         const APIBody = {
             "model": "gpt-3.5-turbo-0125",
             "messages": [

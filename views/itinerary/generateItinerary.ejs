@@ -67,6 +67,7 @@
 
 <script>
   
+  
   const form = document.getElementById("itineraryForm");
   const itineraryContainer = document.getElementById("itinerary");
 
@@ -110,10 +111,6 @@ for (const location of itinerary) {
   const locationItem = document.createElement("div");
   locationItem.classList.add("location"); // Add a CSS class for styling
 
-  // Display location name, category, duration, cost, and rating
-  // const locationDetails = document.createElement("p");
-  // locationDetails.innerHTML = `</br></br><b>Name:</b> ${location.name} | <b>Category:</b> ${location.category} | <b>Duration:</b> ${location.duration} days | <b>Cost:</b> Rs. ${location.cost} | <b>Rating:</b> ${location.rating}<br> `;
-  // locationItem.appendChild(locationDetails);
 
   const locationDetails = document.createElement("p");
 locationDetails.innerHTML = `</br></br><b>Name:</b> <span style="font-size: 25px; ">${location.name}</span> </br> <b>Category:</b> ${location.category} | <b>Duration:</b> ${location.duration} days | <b>Cost:</b> Rs. ${location.cost} | <b>Rating:</b> ${location.rating}<br> `;
@@ -142,10 +139,7 @@ locationItem.appendChild(locationDetails);
   }
   locationItem.appendChild(activityList);
 
-  // const guidesHeading = document.createElement("h3");
-  // guidesHeading.textContent = "Guides:";
-  // locationItem.appendChild(guidesHeading);
-  const guidesHeading = document.createElement("h3");
+const guidesHeading = document.createElement("h3");
 guidesHeading.textContent = "Guides:";
 guidesHeading.style.color = "brown"; // Change the color to blue
 locationItem.appendChild(guidesHeading);
@@ -173,10 +167,6 @@ locationItem.appendChild(guidesHeading);
     taxiList.appendChild(taxiItem);
   }
   locationItem.appendChild(taxiList);
-
-
-  
-
   const restaurantsHeading = document.createElement("h3");
   restaurantsHeading.textContent = "Restaurants:";
   restaurantsHeading.style.color = "brown";
@@ -193,13 +183,8 @@ locationItem.appendChild(guidesHeading);
 
   // Append the location details to the itinerary list
   itineraryList.appendChild(locationItem);
-}
-
-
-
-   
+}   
   });
-
 
     </script>
 
